@@ -177,8 +177,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fonction pour gérer les transitions de section
     function switchSection(sectionId) {
-        if (isAnimating || sectionId === 'account') return;
+        if (isAnimating) return;
         isAnimating = true;
+
+        // Fermer la modale de compte si elle est ouverte
+        closeAccountModal();
 
         // Masquer la page d'accueil si elle est visible
         if (landingPage.style.display !== 'none') {

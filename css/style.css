@@ -21,13 +21,11 @@ body {
     color: var(--color-cream);
     line-height: 1.6;
     overflow-x: hidden;
-    background-image: 
-        linear-gradient(45deg, rgba(128, 0, 32, 0.1) 25%, transparent 25%),
-        linear-gradient(-45deg, rgba(128, 0, 32, 0.1) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, rgba(128, 0, 32, 0.1) 75%),
-        linear-gradient(-45deg, transparent 75%, rgba(128, 0, 32, 0.1) 75%);
-    background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    background-image: url('../assets/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 /* Landing Page */
@@ -37,7 +35,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: radial-gradient(circle at center, var(--color-burgundy) 0%, var(--color-black) 100%);
+    background: rgba(128, 0, 32, 0.1);
+    backdrop-filter: blur(1px);
     position: relative;
     padding: 2rem;
     border: 8px solid var(--color-gold);
@@ -84,9 +83,26 @@ body {
 
 .main-logo {
     max-width: 400px;
-    height: auto;
-    filter: drop-shadow(0 0 20px var(--color-gold));
+    height: 400px;
+    background: linear-gradient(45deg, rgba(128, 0, 32, 0.8), rgba(160, 32, 63, 0.8));
+    border: 4px solid var(--color-gold);
+    border-radius: 50%;
     margin-bottom: 2rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--color-gold);
+    text-align: center;
+    padding: 2rem;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+}
+
+.main-logo::before {
+    content: 'Les Pachas';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
 }
 
 .main-title {
@@ -95,12 +111,14 @@ body {
     margin-bottom: 1rem;
     text-transform: uppercase;
     letter-spacing: 8px;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
-                 0 0 20px var(--color-gold-dark);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8),
+                 0 0 30px var(--color-gold),
+                 0 0 60px var(--color-gold-dark);
     font-family: 'Playfair Display', serif;
     position: relative;
     display: inline-block;
     overflow: hidden;
+    font-weight: bold;
 }
 
 .main-title::before,
@@ -116,10 +134,6 @@ body {
 
 .main-title::before {
     left: -80px;
-}
-
-.main-title::after {
-    right: -80px;
 }
 
 .main-title::after {
@@ -159,8 +173,8 @@ body {
 }
 
 .nav-item {
-    background: linear-gradient(135deg, var(--color-burgundy-light), var(--color-burgundy));
-    border: 2px solid var(--color-gold);
+    background: rgba(128, 0, 32, 0.2);
+    border: 3px solid var(--color-gold);
     padding: 2rem;
     text-align: center;
     cursor: pointer;
@@ -168,7 +182,8 @@ body {
     position: relative;
     overflow: hidden;
     border-radius: 0;
-    box-shadow: 0 0 15px rgba(184, 134, 11, 0.2);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    backdrop-filter: blur(1px);
 }
 
 .nav-item::before {
@@ -215,25 +230,26 @@ body {
 }
 
 .nav-item:hover {
+    background: rgba(160, 32, 63, 0.4);
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(184, 134, 11, 0.3);
-    background: linear-gradient(135deg, var(--color-burgundy), var(--color-burgundy-light));
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
 }
 
 .nav-item i {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     color: var(--color-gold);
-    margin-bottom: 1rem;
-    display: block;
-    text-shadow: 0 0 10px var(--color-gold-dark);
+    margin-bottom: 1.2rem;
+    text-shadow: 0 0 15px var(--color-gold);
 }
 
 .nav-item span {
-    font-size: 1.3rem;
-    color: var(--color-cream);
-    font-weight: 500;
+    font-size: 1.4rem;
+    color: var(--color-gold);
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
+                 0 0 10px var(--color-gold);
 }
 
 /* Sections */
@@ -243,12 +259,15 @@ body {
     display: none;
     opacity: 0;
     transition: opacity var(--transition-duration) ease;
-    background: linear-gradient(to bottom, var(--color-burgundy) 0%, var(--color-black) 100%);
+    background: rgba(128, 0, 32, 0.1);
+    backdrop-filter: blur(1px);
     border: 8px solid var(--color-gold);
     margin: 1rem;
     position: relative;
     margin-left: 80px;
     width: calc(100% - 80px);
+    overflow-y: auto;
+    max-height: calc(100vh - 2rem);
 }
 
 .section::before {
@@ -271,7 +290,9 @@ body {
     letter-spacing: 4px;
     position: relative;
     padding-bottom: 1.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
+                 0 0 20px var(--color-gold);
+    font-weight: bold;
 }
 
 .section-title::before,
@@ -301,7 +322,7 @@ body {
 
 /* Member Cards */
 .member-card {
-    background: linear-gradient(135deg, var(--color-burgundy-light), var(--color-burgundy));
+    background: rgba(128, 0, 32, 0.3);
     border: 2px solid var(--color-gold);
     padding: 2rem;
     text-align: center;
@@ -310,6 +331,7 @@ body {
     position: relative;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
 }
 
 .member-card::after {
@@ -360,10 +382,10 @@ body {
     height: 150px;
     border-radius: 50%;
     margin: 0 auto 1rem;
-    background-color: var(--color-burgundy);
+    background: linear-gradient(45deg, var(--color-burgundy), var(--color-burgundy-light));
     border: 3px solid var(--color-gold);
     transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(184, 134, 11, 0.3);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
     position: relative;
 }
 
@@ -381,7 +403,7 @@ body {
 
 .member-card:hover .member-photo {
     transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(184, 134, 11, 0.5);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
 }
 
 .member-card:hover .member-photo::after {
@@ -438,6 +460,7 @@ body {
     grid-template-columns: 2fr 1fr;
     gap: 4rem;
     background: rgba(128, 0, 32, 0.2);
+    backdrop-filter: blur(3px);
     border: 1px solid var(--color-gold);
     position: relative;
 }
@@ -679,15 +702,16 @@ body {
     top: 0;
     height: 100vh;
     width: 80px;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(45, 45, 45, 0.95) 100%);
+    background: rgba(128, 0, 32, 0.8);
     border-right: 2px solid var(--color-gold);
-    box-shadow: 5px 0 15px rgba(212, 175, 55, 0.2);
+    box-shadow: 5px 0 15px rgba(255, 215, 0, 0.1);
     z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
     transition: width 0.3s ease;
+    backdrop-filter: blur(5px);
 }
 
 .side-nav:hover {
@@ -701,9 +725,17 @@ body {
 }
 
 .nav-logo-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, var(--color-burgundy), var(--color-burgundy-light));
+    border: 2px solid var(--color-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: var(--color-gold);
+    margin: 0 auto;
 }
 
 .nav-links {
@@ -714,18 +746,18 @@ body {
 }
 
 .side-nav-item {
+    background: rgba(160, 32, 63, 0.3);
+    border: 1px solid var(--color-gold);
     width: calc(100% - 20px);
     margin: 5px 10px;
     padding: 15px;
     display: flex;
     align-items: center;
-    color: #fff;
+    color: var(--color-cream);
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     border-radius: 10px;
-    background: linear-gradient(45deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
-    border: 1px solid rgba(212, 175, 55, 0.2);
     overflow: hidden;
 }
 
@@ -749,14 +781,15 @@ body {
 }
 
 .side-nav-item:hover {
-    background: linear-gradient(45deg, rgba(212, 175, 55, 0.3) 0%, rgba(212, 175, 55, 0.15) 100%);
+    background: rgba(160, 32, 63, 0.6);
     transform: translateX(5px);
-    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-color: var(--color-gold);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
 }
 
 .side-nav-item.active {
-    background: linear-gradient(45deg, rgba(212, 175, 55, 0.4) 0%, rgba(212, 175, 55, 0.2) 100%);
-    border: 1px solid rgba(212, 175, 55, 0.6);
+    background: rgba(160, 32, 63, 0.8);
+    border-color: var(--color-gold);
 }
 
 /* Account Section Styles */
@@ -765,17 +798,18 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(26, 26, 26, 0.95);
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: rgba(128, 0, 32, 0.95);
+    border: 1px solid var(--color-gold);
     border-radius: 15px;
     padding: 30px;
     width: 90%;
     max-width: 400px;
     z-index: 1000;
     display: none;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
     max-height: 90vh;
     overflow-y: auto;
+    backdrop-filter: blur(10px);
 }
 
 .account-section.active {
@@ -835,23 +869,28 @@ body {
     font-size: 0.9em;
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea {
     padding: 8px 12px;
     border: 1px solid rgba(212, 175, 55, 0.2);
     border-radius: 5px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    background: rgba(128, 0, 32, 0.2);
+    color: var(--color-cream);
     font-size: 0.9em;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group textarea:focus {
     outline: none;
-    border-color: #D4AF37;
+    border-color: var(--color-gold);
+    background: rgba(160, 32, 63, 0.3);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
 }
 
 .submit-btn {
-    background: #D4AF37;
-    color: #000;
+    background: linear-gradient(45deg, var(--color-gold), var(--color-gold-dark));
+    color: var(--color-burgundy);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
     border: none;
     padding: 10px;
     border-radius: 5px;
@@ -862,7 +901,8 @@ body {
 }
 
 .submit-btn:hover {
-    background: #B4941F;
+    background: linear-gradient(45deg, var(--color-gold-dark), var(--color-gold));
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
 }
 
 .close-account {
@@ -895,8 +935,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
+    background: rgba(128, 0, 32, 0.4);
+    backdrop-filter: blur(3px);
     z-index: 999;
     display: none;
 }
@@ -1034,7 +1074,7 @@ body {
 }
 
 .news-card, .event-card {
-    background: linear-gradient(135deg, var(--color-burgundy-light), var(--color-burgundy));
+    background: rgba(128, 0, 32, 0.3);
     border: 2px solid var(--color-gold);
     padding: 2rem;
     text-align: center;
@@ -1042,11 +1082,12 @@ body {
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(3px);
 }
 
 .news-card:hover, .event-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 15px 30px rgba(184, 134, 11, 0.3);
+    background: rgba(160, 32, 63, 0.5);
+    box-shadow: 0 15px 30px rgba(255, 215, 0, 0.2);
 }
 
 .news-title, .event-title {
@@ -1141,7 +1182,7 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: var(--color-burgundy);
+    background: rgba(128, 0, 32, 0.8);
     border: 2px solid var(--color-gold);
     color: var(--color-gold);
     font-size: 1.2rem;
@@ -1151,12 +1192,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 15px rgba(184, 134, 11, 0.3);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
 }
 
 .music-toggle:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(184, 134, 11, 0.5);
+    background: rgba(160, 32, 63, 0.9);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
 }
 
 .music-toggle.playing {
@@ -1237,7 +1278,7 @@ body {
 #eventForm textarea {
     width: 100%;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(128, 0, 32, 0.2);
     border: 1px solid var(--color-gold);
     border-radius: 5px;
     color: var(--color-cream);
@@ -1249,7 +1290,8 @@ body {
 #eventForm textarea:focus {
     outline: none;
     border-color: var(--color-gold);
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    background: rgba(160, 32, 63, 0.3);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
 }
 
 #eventForm textarea {
@@ -1575,4 +1617,22 @@ input:checked + .slider:before {
 .account-section::-webkit-scrollbar-thumb {
     background: var(--color-gold);
     border-radius: 4px;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-gold);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gold-dark);
 } 
