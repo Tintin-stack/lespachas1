@@ -38,128 +38,33 @@
             <form id="loginForm" class="auth-form active">
                 <div class="form-group">
                     <label for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" name="email" required autocomplete="email">
+                    <input type="email" id="loginEmail" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="loginPassword">Mot de passe</label>
-                    <input type="password" id="loginPassword" name="password" required autocomplete="current-password">
+                    <input type="password" id="loginPassword" name="password" required>
                 </div>
                 <button type="submit" class="submit-btn">Se connecter</button>
             </form>
             <form id="registerForm" class="auth-form">
                 <div class="form-group">
                     <label for="registerNom">Nom</label>
-                    <input type="text" id="registerNom" name="nom" required autocomplete="family-name">
+                    <input type="text" id="registerNom" name="nom" required>
                 </div>
                 <div class="form-group">
                     <label for="registerPrenom">Prénom</label>
-                    <input type="text" id="registerPrenom" name="prenom" required autocomplete="given-name">
+                    <input type="text" id="registerPrenom" name="prenom" required>
                 </div>
                 <div class="form-group">
                     <label for="registerEmail">Email</label>
-                    <input type="email" id="registerEmail" name="email" required autocomplete="email">
-                </div>
-                <div class="form-group">
-                    <label for="registerTel">Téléphone</label>
-                    <input type="tel" id="registerTel" name="telephone" pattern="[0-9]{10}" required autocomplete="tel">
+                    <input type="email" id="registerEmail" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="registerPassword">Mot de passe</label>
-                    <input type="password" id="registerPassword" name="password" required autocomplete="new-password">
-                </div>
-                <div class="form-group">
-                    <label for="registerPasswordConfirm">Confirmer le mot de passe</label>
-                    <input type="password" id="registerPasswordConfirm" name="password-confirm" required autocomplete="new-password">
-                </div>
-                <div class="notifications-settings">
-                    <h3>Notifications</h3>
-                    <p>Recevez des notifications pour les nouveaux événements</p>
-                    <label class="switch">
-                        <input type="checkbox" id="notifications-toggle">
-                        <span class="slider round"></span>
-                    </label>
+                    <input type="password" id="registerPassword" name="password" required>
                 </div>
                 <button type="submit" class="submit-btn">S'inscrire</button>
             </form>
-            <div id="accountSettings" class="auth-form">
-                <div class="settings-tabs">
-                    <div class="settings-tab active" data-settings="profile">Profil</div>
-                    <div class="settings-tab" data-settings="password">Mot de passe</div>
-                    <div class="settings-tab" data-settings="notifications">Notifications</div>
-                    <div class="settings-tab danger" data-settings="delete">Fermer le compte</div>
-                </div>
-                
-                <form id="profileForm" class="settings-form active">
-                    <div class="form-group">
-                        <label for="updateNom">Nom</label>
-                        <input type="text" id="updateNom" name="nom" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="updatePrenom">Prénom</label>
-                        <input type="text" id="updatePrenom" name="prenom" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="updateEmail">Email</label>
-                        <input type="email" id="updateEmail" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="updateTel">Téléphone</label>
-                        <input type="tel" id="updateTel" name="telephone" pattern="[0-9]{10}" required>
-                    </div>
-                    <button type="submit" class="submit-btn">Mettre à jour</button>
-                </form>
-
-                <form id="passwordForm" class="settings-form">
-                    <div class="form-group">
-                        <label for="currentPassword">Mot de passe actuel</label>
-                        <input type="password" id="currentPassword" name="currentPassword" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="newPassword">Nouveau mot de passe</label>
-                        <input type="password" id="newPassword" name="newPassword" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirmNewPassword">Confirmer le nouveau mot de passe</label>
-                        <input type="password" id="confirmNewPassword" name="confirmNewPassword" required>
-                    </div>
-                    <button type="submit" class="submit-btn">Changer le mot de passe</button>
-                </form>
-
-                <div id="notificationsForm" class="settings-form">
-                    <div class="notifications-settings">
-                        <h3>Paramètres de notifications</h3>
-                        <p>Recevez des notifications pour :</p>
-                        <div class="notification-option">
-                            <label class="switch">
-                                <input type="checkbox" id="eventNotifications" checked>
-                                <span class="slider round"></span>
-                            </label>
-                            <span>Nouveaux événements</span>
-                        </div>
-                        <div class="notification-option">
-                            <label class="switch">
-                                <input type="checkbox" id="newsNotifications" checked>
-                                <span class="slider round"></span>
-                            </label>
-                            <span>Actualités</span>
-                        </div>
-                    </div>
-                    <button type="button" class="submit-btn" id="saveNotifications">Enregistrer les préférences</button>
-                </div>
-
-                <div id="deleteAccountForm" class="settings-form">
-                    <div class="delete-account-warning">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h3>Attention</h3>
-                        <p>La suppression de votre compte est définitive. Toutes vos données seront effacées.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="deleteConfirmPassword">Confirmez votre mot de passe</label>
-                        <input type="password" id="deleteConfirmPassword" name="deleteConfirmPassword" required>
-                    </div>
-                    <button type="button" class="danger-btn" id="deleteAccount">Supprimer mon compte</button>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -191,7 +96,6 @@
             <div class="side-nav-item" data-section="actualites">
                 <i class="fas fa-newspaper"></i>
                 <span>Actualités</span>
-                <div class="notification-badge">0</div>
             </div>
             <div class="side-nav-item" data-section="about">
                 <i class="fas fa-book-open"></i>
@@ -248,395 +152,71 @@
                 <div class="pyramid-level presidents">
                     <div class="member-card">
                         <div class="member-photo"></div>
-                        <h3>Co-Président</h3>
-                        <p class="member-name">Nom Prénom</p>
-                        <p class="member-desc">Description du rôle</p>
-                    </div>
-                    <div class="member-card">
-                        <div class="member-photo"></div>
-                        <h3>Co-Président</h3>
-                        <p class="member-name">Nom Prénom</p>
-                        <p class="member-desc">Description du rôle</p>
-                    </div>
-                </div>
-                <div class="pyramid-level executives">
-                    <div class="member-card">
-                        <div class="member-photo"></div>
-                        <h3>Co-Trésorier</h3>
-                        <p class="member-name">Nom Prénom</p>
-                    </div>
-                    <div class="member-card">
-                        <div class="member-photo"></div>
-                        <h3>Co-Trésorier</h3>
-                        <p class="member-name">Nom Prénom</p>
-                    </div>
-                    <div class="member-card">
-                        <div class="member-photo"></div>
-                        <h3>Vice-Président</h3>
-                        <p class="member-name">Nom Prénom</p>
-                    </div>
-                    <div class="member-card">
-                        <div class="member-photo"></div>
-                        <h3>Secrétaire</h3>
-                        <p class="member-name">Nom Prénom</p>
+                        <h3>Président</h3>
+                        <p>Nom du président</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section Pôle Sponsoring -->
+        <!-- Section Sponsoring -->
         <section id="sponsoring" class="section">
             <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
             <h2 class="section-title">Pôle Sponsoring</h2>
-            <div class="pole-structure">
-                <div class="pole-head">
-                    <div class="member-card">
-                        <div class="member-photo"></div>
-                        <h3>Responsable Sponsoring</h3>
-                        <p class="member-name">Nom Prénom</p>
-                    </div>
-                </div>
-                <div class="pole-members">
-                    <div class="member-row">
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                    </div>
-                    <div class="member-row">
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="content">
+                <p>Contenu du pôle sponsoring...</p>
             </div>
         </section>
 
-        <!-- Section Pôle Communication -->
+        <!-- Section Communication -->
         <section id="communication" class="section">
             <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
             <h2 class="section-title">Pôle Communication</h2>
-            <div class="pole-structure">
-                <div class="pole-head">
-                    <div class="member-card">
-                        <div class="member-photo"></div>
-                        <h3>Responsable Communication</h3>
-                        <p class="member-name">Nom Prénom</p>
-                    </div>
-                </div>
-                <div class="pole-members">
-                    <div class="member-row">
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                    </div>
-                    <div class="member-row">
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="content">
+                <p>Contenu du pôle communication...</p>
             </div>
         </section>
 
-        <!-- Section Pôle Événementiel -->
+        <!-- Section Événementiel -->
         <section id="evenementiel" class="section">
             <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
             <h2 class="section-title">Pôle Événementiel</h2>
-            <div class="pole-structure">
-                <div class="pole-head">
-                    <div class="member-card">
-                        <div class="member-photo"></div>
-                        <h3>Responsable Événementiel</h3>
-                        <p class="member-name">Nom Prénom</p>
-                    </div>
-                </div>
-                <div class="pole-members">
-                    <div class="member-row">
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                    </div>
-                    <div class="member-row">
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="content">
+                <p>Contenu du pôle événementiel...</p>
             </div>
         </section>
 
-        <!-- Section Pôle RH -->
+        <!-- Section RH -->
         <section id="rh" class="section">
             <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
-            <h2 class="section-title">Pôle Ressources Humaines</h2>
-            <div class="pole-structure">
-                <div class="pole-head">
-                    <div class="member-card">
-                        <div class="member-photo"></div>
-                        <h3>Responsable RH</h3>
-                        <p class="member-name">Nom Prénom</p>
-                    </div>
-                </div>
-                <div class="pole-members">
-                    <div class="member-row">
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                    </div>
-                    <div class="member-row">
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo"></div>
-                            <h3>Membre</h3>
-                            <p class="member-name">Nom Prénom</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Histoire des Pachas -->
-        <section id="about" class="section">
-            <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
-            <h2 class="section-title">Histoire des Pachas</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Notre Histoire</h3>
-                    <p>Description de l'histoire et des valeurs des Pachas...</p>
-                    
-                    <h3>Notre Mission</h3>
-                    <p>Description de la mission et des objectifs...</p>
-                    
-                    <h3>Nos Valeurs</h3>
-                    <ul>
-                        <li>Valeur 1</li>
-                        <li>Valeur 2</li>
-                        <li>Valeur 3</li>
-                    </ul>
-                </div>
-                <div class="contact-info">
-                    <h3>Contactez-nous</h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-
-                <div class="photo-gallery-link">
-                    <div class="side-nav-item" data-section="gallery">
-                        <i class="fas fa-images"></i>
-                        <span>Photos de la Pacha Family</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Photos de la Pacha Family -->
-        <section id="gallery" class="section">
-            <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
-            <h2 class="section-title">Photos de la Pacha Family</h2>
-            <div class="gallery-content">
-                <div class="gallery-filters">
-                    <button class="filter-btn active" data-filter="all">Tous</button>
-                    <button class="filter-btn" data-filter="events">Événements</button>
-                    <button class="filter-btn" data-filter="team">Équipe</button>
-                    <button class="filter-btn" data-filter="memories">Souvenirs</button>
-                </div>
-
-                <form id="photoUploadForm" class="photo-upload-form">
-                    <h3>Ajouter une photo</h3>
-                    <div class="form-group">
-                        <input type="file" id="photoInput" accept="image/*" required>
-                        <img id="photoPreview" style="display: none; max-width: 200px; margin-top: 10px;">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="photoTitle" placeholder="Titre de la photo" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="photoDescription" placeholder="Description de la photo"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <select id="photoCategory" required>
-                            <option value="">Sélectionner une catégorie</option>
-                            <option value="events">Événements</option>
-                            <option value="team">Équipe</option>
-                            <option value="memories">Souvenirs</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="submit-photo">Ajouter la photo</button>
-                </form>
-
-                <div class="gallery-grid">
-                    <!-- Les photos seront ajoutées dynamiquement ici -->
-                </div>
+            <h2 class="section-title">Pôle RH</h2>
+            <div class="content">
+                <p>Contenu du pôle RH...</p>
             </div>
         </section>
 
         <!-- Section Actualités -->
         <section id="actualites" class="section">
             <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
-            <h2 class="section-title">Actualités et Événements</h2>
-            <div class="actualites-content">
-                <div class="notifications-settings">
-                    <h3>Paramètres de notifications</h3>
-                    <label class="switch">
-                        <input type="checkbox" id="notifications-toggle">
-                        <span class="slider round"></span>
-                        Activer les notifications
-                    </label>
-                </div>
-                <div class="events-list">
-                    <h3>Prochains événements</h3>
-                    <div class="event-cards">
-                        <!-- Les événements seront ajoutés dynamiquement ici -->
-                    </div>
-                </div>
-                <div class="add-event-form" id="addEventForm">
-                    <h3>Ajouter un événement</h3>
-                    <form id="eventForm">
-                        <input type="text" id="eventTitle" placeholder="Titre de l'événement" required>
-                        <input type="datetime-local" id="eventDate" required>
-                        <textarea id="eventDescription" placeholder="Description de l'événement" required></textarea>
-                        <button type="submit" class="submit-event">Ajouter l'événement</button>
-                    </form>
-                </div>
+            <h2 class="section-title">Actualités</h2>
+            <div class="content">
+                <p>Contenu des actualités...</p>
+            </div>
+        </section>
+
+        <!-- Section Histoire -->
+        <section id="about" class="section">
+            <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            <h2 class="section-title">Histoire des Pachas</h2>
+            <div class="content">
+                <p>Contenu de l'histoire des Pachas...</p>
             </div>
         </section>
     </div>
+
+    <button id="musicToggle" class="music-toggle">
+        <i class="fas fa-music"></i>
+    </button>
 
     <script src="js/main.js"></script>
 </body>

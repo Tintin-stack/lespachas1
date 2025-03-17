@@ -1,8 +1,8 @@
 /* Variables globales */
 :root {
-    --primary-color: #FF1493;
-    --secondary-color: #FF69B4;
-    --accent-color: #FFB6C1;
+    --primary-color: #B22222;  /* Rouge foncé */
+    --secondary-color: #DAA520;  /* Or */
+    --accent-color: #FFD700;  /* Or plus clair */
     --dark-color: #2C2C2C;
     --light-color: #FFFFFF;
     --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -113,11 +113,13 @@ body {
     font-size: 4rem;
     margin-bottom: 10px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: var(--secondary-color);  /* Titre en or */
 }
 
 .subtitle {
     font-size: 1.5rem;
     opacity: 0.9;
+    color: var(--accent-color);  /* Sous-titre en or clair */
 }
 
 /* Styles de la navigation principale */
@@ -165,7 +167,7 @@ body {
 .section-title {
     font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
-    color: var(--primary-color);
+    color: var(--secondary-color);  /* Titres de section en or */
     margin-bottom: 30px;
     text-align: center;
 }
@@ -217,11 +219,14 @@ body {
     font-size: 1rem;
     transition: all 0.3s ease;
     width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
 }
 
 .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);  /* Ombre dorée */
 }
 
 /* Styles des cartes de membres */
