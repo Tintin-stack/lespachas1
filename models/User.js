@@ -13,47 +13,37 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
-        lowercase: true
+        unique: true
     },
     telephone: {
         type: String,
-        required: true,
-        validate: {
-            validator: function(v) {
-                return /^(0|\+33)[1-9](\d{2}){4}$/.test(v);
-            },
-            message: 'Format de numéro de téléphone invalide'
-        }
+        required: true
     },
     password: {
         type: String,
         required: true
     },
-    isAdmin: {
-        type: Boolean,
-        default: false
-    },
-    notificationsEnabled: {
-        type: Boolean,
-        default: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
     }
+}, {
+    timestamps: true
 });
 
-// Hash du mot de passe avant sauvegarde
+// Hash du mot de passe avant la sauvegarde
 userSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return next();
-    this.password = await bcrypt.hash(this.password, 10);
-    next();
+    if (!this.isModified('password')) {
+        next();
+    }
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
 });
 
 // Méthode pour comparer les mots de passe
-userSchema.methods.comparePassword = async function(candidatePassword) {
-    return await bcrypt.compare(candidatePassword, this.password);
+userSchema.methods.matchPassword = async function(enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
 };
 
 module.exports = mongoose.model('User', userSchema); 

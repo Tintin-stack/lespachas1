@@ -681,8 +681,8 @@ document.addEventListener('DOMContentLoaded', () => {
     async function sendWelcomeEmail(user) {
         try {
             await emailjs.send(
-                'VOTRE_SERVICE_ID', // Remplacez par le Service ID de votre service Gmail
-                'VOTRE_TEMPLATE_ID', // Remplacez par le Template ID de votre template d'email
+                'service_d5avvat', // Votre Service ID Gmail
+                'template_hv30nek', // Votre Template ID
                 {
                     to_name: `${user.prenom} ${user.nom}`,
                     to_email: user.email,

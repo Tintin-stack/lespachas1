@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Pachas - Événements</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 50px;
+        }
+        .event-card {
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Les Pachas</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <button class="btn btn-outline-primary me-2" id="createEventBtn">Créer un événement</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-danger" id="logoutBtn">Déconnexion</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <h1 class="text-center mb-4">Événements</h1>
+        
+        <!-- Liste des événements -->
+        <div class="row" id="eventsList">
+            <!-- Les événements seront ajoutés ici dynamiquement -->
+        </div>
+
+        <!-- Modal pour créer un événement -->
+        <div class="modal fade" id="createEventModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Créer un événement</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="createEventForm">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="eventTitle" placeholder="Titre" required>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" id="eventDescription" placeholder="Description" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <input type="datetime-local" class="form-control" id="eventDate" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="eventLocation" placeholder="Lieu" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" id="eventCapacity" placeholder="Nombre de places" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" id="eventPrice" placeholder="Prix" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Créer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Vérifier l'authentification
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/';
+        }
+
+        // Charger les événements
+        async function loadEvents() {
+            try {
+                const response = await fetch('/api/events', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const events = await response.json();
+                
+                const eventsList = document.getElementById('eventsList');
+                eventsList.innerHTML = events.map(event => `
+                    <div class="col-md-4">
+                        <div class="card event-card">
+                            <div class="card-body">
+                                <h5 class="card-title">${event.title}</h5>
+                                <p class="card-text">${event.description}</p>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        ${new Date(event.date).toLocaleString()}<br>
+                                        ${event.location}<br>
+                                        Prix: ${event.price}€<br>
+                                        Places: ${event.participants.length}/${event.capacity}
+                                    </small>
+                                </p>
+                                <button class="btn btn-primary participate-btn" data-event-id="${event._id}">
+                                    Participer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Ajouter les écouteurs pour les boutons de participation
+                document.querySelectorAll('.participate-btn').forEach(button => {
+                    button.addEventListener('click', async () => {
+                        try {
+                            const response = await fetch(`/api/events/${button.dataset.eventId}/participate`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                }
+                            });
+                            const data = await response.json();
+                            if (response.ok) {
+                                alert('Inscription à l\'événement réussie !');
+                                loadEvents(); // Recharger les événements
+                            } else {
+                                alert(data.message || 'Erreur lors de l\'inscription à l\'événement');
+                            }
+                        } catch (error) {
+                            alert('Erreur lors de l\'inscription à l\'événement');
+                        }
+                    });
+                });
+            } catch (error) {
+                alert('Erreur lors du chargement des événements');
+            }
+        }
+
+        // Modal de création d'événement
+        const createEventModal = new bootstrap.Modal(document.getElementById('createEventModal'));
+        document.getElementById('createEventBtn').addEventListener('click', () => {
+            createEventModal.show();
+        });
+
+        // Gérer la création d'événement
+        document.getElementById('createEventForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const response = await fetch('/api/events', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        title: document.getElementById('eventTitle').value,
+                        description: document.getElementById('eventDescription').value,
+                        date: document.getElementById('eventDate').value,
+                        location: document.getElementById('eventLocation').value,
+                        capacity: document.getElementById('eventCapacity').value,
+                        price: document.getElementById('eventPrice').value
+                    })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Événement créé avec succès !');
+                    createEventModal.hide();
+                    loadEvents(); // Recharger les événements
+                } else {
+                    alert(data.message || 'Erreur lors de la création de l\'événement');
+                }
+            } catch (error) {
+                alert('Erreur lors de la création de l\'événement');
+            }
+        });
+
+        // Gérer la déconnexion
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('token');
+            window.location.href = '/';
+        });
+
+        // Charger les événements au chargement de la page
+        loadEvents();
+    </script>
+</body>
+</html> 

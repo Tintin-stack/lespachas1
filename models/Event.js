@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const eventSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     description: {
         type: String,
@@ -17,14 +18,32 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    isPublished: {
-        type: Boolean,
-        default: false
+    capacity: {
+        type: Number,
+        required: true,
+        min: 1
     },
-    createdBy: {
+    price: {
+        type: Number,
+        required: true,
+        min: 0
+    },
+    organizer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
+    },
+    participants: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    image: {
+        type: String,
+        default: null
+    },
+    isPublished: {
+        type: Boolean,
+        default: false
     },
     createdAt: {
         type: Date,
@@ -34,7 +53,19 @@ const eventSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+}, {
+    timestamps: true
 });
+
+// Méthode pour vérifier si un événement est complet
+eventSchema.methods.isFull = function() {
+    return this.participants.length >= this.capacity;
+};
+
+// Méthode pour vérifier si un utilisateur participe déjà
+eventSchema.methods.isParticipating = function(userId) {
+    return this.participants.includes(userId);
+};
 
 const Event = mongoose.model('Event', eventSchema);
 module.exports = Event; 

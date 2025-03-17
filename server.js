@@ -1,78 +1,52 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
-const connectDB = require('./config/db');
 const path = require('path');
-const multer = require('multer');
-
-// Configuration Twilio
-const twilioClient = require('twilio')(
-    process.env.TWILIO_ACCOUNT_SID,
-    process.env.TWILIO_AUTH_TOKEN
-);
-
-// Connexion à la base de données
-connectDB();
+const mongoose = require('mongoose');
+const cors = require('cors');
+const nodemailer = require('nodemailer');
 
 const app = express();
+
+// Configuration Email
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD
+    }
+});
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
 
-// Configuration de Multer pour l'upload de photos
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, 'public/uploads/');
-    },
-    filename: function(req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
+// Servir les fichiers statiques
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/css', express.static(path.join(__dirname, 'css')));
+app.use('/js', express.static(path.join(__dirname, 'js')));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-const upload = multer({ storage: storage });
+// Connexion à MongoDB
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('Connecté à MongoDB Atlas'))
+    .catch(err => console.error('Erreur de connexion à MongoDB:', err));
 
 // Routes API
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/events', require('./routes/eventRoutes'));
-app.use('/api/photos', require('./routes/photoRoutes'));
 
-// Route pour l'envoi de SMS
-app.post('/api/notifications/sms', async (req, res) => {
-    try {
-        const { phoneNumber, message } = req.body;
-        
-        // Vérifier que le numéro commence par +33 ou 0
-        const formattedNumber = phoneNumber.startsWith('0') 
-            ? '+33' + phoneNumber.slice(1) 
-            : phoneNumber;
-
-        const smsResponse = await twilioClient.messages.create({
-            body: message,
-            from: process.env.TWILIO_PHONE_NUMBER,
-            to: formattedNumber
-        });
-
-        res.json({ success: true, messageId: smsResponse.sid });
-    } catch (error) {
-        console.error('Erreur SMS:', error);
-        res.status(500).json({ 
-            success: false, 
-            error: 'Erreur lors de l\'envoi du SMS' 
-        });
-    }
+// Route par défaut
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Servir les fichiers statiques en production
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'public')));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-    });
-}
+// Gestion des erreurs
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Une erreur est survenue!');
+});
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Serveur démarré sur http://localhost:${PORT}`);
 }); 

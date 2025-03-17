@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { sendEmail } = require('../utils/emailService');
 
 // Middleware d'authentification
 const auth = async (req, res, next) => {
@@ -21,19 +22,19 @@ const auth = async (req, res, next) => {
     }
 };
 
-// Inscription
+// Route d'inscription
 router.post('/register', async (req, res) => {
     try {
         const { nom, prenom, email, telephone, password } = req.body;
 
         // Vérifier si l'utilisateur existe déjà
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
+        const userExists = await User.findOne({ email });
+        if (userExists) {
             return res.status(400).json({ message: 'Cet email est déjà utilisé' });
         }
 
-        // Créer le nouvel utilisateur
-        const user = new User({
+        // Créer l'utilisateur
+        const user = await User.create({
             nom,
             prenom,
             email,
@@ -41,68 +42,67 @@ router.post('/register', async (req, res) => {
             password
         });
 
-        await user.save();
-
-        // Générer le token
-        const token = jwt.sign(
-            { userId: user._id },
-            process.env.JWT_SECRET,
-            { expiresIn: '7d' }
+        // Envoyer un email de confirmation
+        await sendEmail(
+            email,
+            'Bienvenue sur Les Pachas !',
+            `<h1>Bienvenue ${prenom} !</h1>
+            <p>Votre compte a été créé avec succès sur Les Pachas.</p>
+            <p>Vous pouvez maintenant vous connecter et accéder à toutes les fonctionnalités.</p>`
         );
 
+        // Générer le token JWT
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+            expiresIn: '30d'
+        });
+
         res.status(201).json({
-            user: {
-                id: user._id,
-                nom: user.nom,
-                prenom: user.prenom,
-                email: user.email,
-                telephone: user.telephone,
-                isAdmin: user.isAdmin
-            },
+            _id: user._id,
+            nom: user.nom,
+            prenom: user.prenom,
+            email: user.email,
+            role: user.role,
             token
         });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        console.error('Erreur d\'inscription:', error);
+        res.status(500).json({ message: 'Erreur lors de l\'inscription' });
     }
 });
 
-// Connexion
+// Route de connexion
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Trouver l'utilisateur
+        // Vérifier si l'utilisateur existe
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(401).json({ message: 'Email ou mot de passe incorrect' });
         }
 
         // Vérifier le mot de passe
-        const isMatch = await user.comparePassword(password);
+        const isMatch = await user.matchPassword(password);
         if (!isMatch) {
             return res.status(401).json({ message: 'Email ou mot de passe incorrect' });
         }
 
-        // Générer le token
-        const token = jwt.sign(
-            { userId: user._id },
-            process.env.JWT_SECRET,
-            { expiresIn: '7d' }
-        );
+        // Générer le token JWT
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+            expiresIn: '30d'
+        });
 
         res.json({
-            user: {
-                id: user._id,
-                nom: user.nom,
-                prenom: user.prenom,
-                email: user.email,
-                telephone: user.telephone,
-                isAdmin: user.isAdmin
-            },
+            _id: user._id,
+            nom: user.nom,
+            prenom: user.prenom,
+            email: user.email,
+            role: user.role,
             token
         });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        console.error('Erreur de connexion:', error);
+        res.status(500).json({ message: 'Erreur lors de la connexion' });
     }
 });
 
