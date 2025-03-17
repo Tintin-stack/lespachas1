@@ -3,388 +3,641 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Les Pachas - Accueil</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        /* Styles de base */
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            padding-top: 80px;
-        }
+    <title>Les Pachas - BDE ESPOL 2025-2026</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("bSPMC73_nkit6xKfU");
+        })();
+    </script>
+    <audio id="bgMusic" loop>
+        <source src="assets/music/background.mp3" type="audio/mp3">
+    </audio>
 
-        /* Navbar */
-        .navbar {
-            background-color: rgba(255, 255, 255, 0.95) !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 1rem;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .navbar-brand img {
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        .navbar-toggler {
-            border: none;
-            padding: 0.5rem;
-        }
-
-        .navbar-toggler:focus {
-            box-shadow: none;
-        }
-
-        .nav-link {
-            color: #2c3e50;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-        }
-
-        .nav-link:hover {
-            color: #3498db;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            text-align: center;
-            padding: 60px 0;
-            margin-bottom: 40px;
-        }
-
-        .hero-section h1 {
-            font-size: 3.5rem;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-
-        .hero-section p {
-            font-size: 1.2rem;
-            color: #34495e;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Formulaires */
-        .form-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        .form-container h2 {
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-
-        .form-control {
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            margin-bottom: 15px;
-        }
-
-        .form-control:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
-        }
-
-        .btn-primary {
-            background-color: #3498db;
-            border: none;
-            padding: 12px;
-            font-weight: 600;
-            border-radius: 8px;
-        }
-
-        .btn-primary:hover {
-            background-color: #2980b9;
-        }
-
-        .btn-success {
-            padding: 12px;
-            font-weight: 600;
-            border-radius: 8px;
-        }
-
-        /* Features Section */
-        .feature-box {
-            text-align: center;
-            padding: 20px;
-            margin-bottom: 30px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-box:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-box i {
-            font-size: 2.5rem;
-            color: #3498db;
-            margin-bottom: 15px;
-        }
-
-        .feature-box h3 {
-            color: #2c3e50;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .feature-box p {
-            color: #7f8c8d;
-        }
-
-        /* Styles Responsives */
-        @media (max-width: 768px) {
-            body {
-                padding-top: 60px;
-            }
-
-            .navbar {
-                padding: 0.5rem;
-            }
-
-            .navbar-brand {
-                font-size: 1.2rem;
-            }
-
-            .navbar-brand img {
-                height: 30px;
-            }
-
-            .hero-section {
-                padding: 30px 0;
-            }
-
-            .hero-section h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-section p {
-                font-size: 1rem;
-                padding: 0 15px;
-            }
-
-            .form-container {
-                padding: 20px;
-                margin: 15px;
-            }
-
-            .form-container h2 {
-                font-size: 1.5rem;
-                margin-bottom: 20px;
-            }
-
-            .btn-primary, .btn-success {
-                width: 100%;
-                margin-top: 10px;
-            }
-
-            .feature-box {
-                margin: 10px;
-                padding: 15px;
-            }
-
-            .feature-box i {
-                font-size: 2rem;
-            }
-
-            .feature-box h3 {
-                font-size: 1.2rem;
-            }
-
-            .feature-box p {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Animation pour le menu mobile */
-        .navbar-collapse {
-            transition: all 0.3s ease-in-out;
-        }
-
-        .navbar-collapse.collapsing {
-            opacity: 0;
-        }
-
-        .navbar-collapse.show {
-            opacity: 1;
-        }
-    </style>
+    <button id="musicToggle" class="music-toggle">
+        <i class="fas fa-music"></i>
+    </button>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="assets/logo.png" alt="Les Pachas" height="40">
-                Les Pachas
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#features">Fonctionnalités</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Modal de connexion/inscription -->
+    <div class="overlay"></div>
+    <div class="account-section">
+        <button class="close-account">&times;</button>
+        <h2 class="section-title">Mon Compte</h2>
+        <div class="account-tabs">
+            <div class="account-tab active" data-tab="login">Connexion</div>
+            <div class="account-tab" data-tab="register">Inscription</div>
         </div>
-    </nav>
-
-    <div class="container">
-        <!-- Hero Section -->
-        <div class="hero-section">
-            <h1>Bienvenue sur Les Pachas</h1>
-            <p>Rejoignez notre communauté et participez à des événements exceptionnels. Créez, partagez et vivez des expériences uniques.</p>
-        </div>
-
-        <div class="row">
-            <!-- Formulaire d'inscription -->
-            <div class="col-md-6">
-                <div class="form-container">
-                    <h2 class="text-center">Inscription</h2>
-                    <form id="registerForm">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" id="nom" placeholder="Nom" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" class="form-control" id="prenom" placeholder="Prénom" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" class="form-control" id="email" placeholder="Email" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="tel" class="form-control" id="telephone" placeholder="Téléphone" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" class="form-control" id="password" placeholder="Mot de passe" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
-                    </form>
+        <div class="auth-form-container">
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" name="email" required autocomplete="email">
                 </div>
-            </div>
-
-            <!-- Formulaire de connexion -->
-            <div class="col-md-6">
-                <div class="form-container">
-                    <h2 class="text-center">Connexion</h2>
-                    <form id="loginForm">
-                        <div class="mb-3">
-                            <input type="email" class="form-control" id="loginEmail" placeholder="Email" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" class="form-control" id="loginPassword" placeholder="Mot de passe" required>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100">Se connecter</button>
-                    </form>
+                <div class="form-group">
+                    <label for="loginPassword">Mot de passe</label>
+                    <input type="password" id="loginPassword" name="password" required autocomplete="current-password">
                 </div>
-            </div>
-        </div>
-
-        <!-- Features Section -->
-        <div id="features" class="row mt-5">
-            <div class="col-md-4">
-                <div class="feature-box">
-                    <i class="fas fa-calendar-alt"></i>
-                    <h3>Événements</h3>
-                    <p>Créez et participez à des événements passionnants</p>
+                <button type="submit" class="submit-btn">Se connecter</button>
+            </form>
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="registerNom">Nom</label>
+                    <input type="text" id="registerNom" name="nom" required autocomplete="family-name">
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-box">
-                    <i class="fas fa-users"></i>
-                    <h3>Communauté</h3>
-                    <p>Rejoignez une communauté dynamique et engagée</p>
+                <div class="form-group">
+                    <label for="registerPrenom">Prénom</label>
+                    <input type="text" id="registerPrenom" name="prenom" required autocomplete="given-name">
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-box">
-                    <i class="fas fa-bell"></i>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" name="email" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="registerTel">Téléphone</label>
+                    <input type="tel" id="registerTel" name="telephone" pattern="[0-9]{10}" required autocomplete="tel">
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Mot de passe</label>
+                    <input type="password" id="registerPassword" name="password" required autocomplete="new-password">
+                </div>
+                <div class="form-group">
+                    <label for="registerPasswordConfirm">Confirmer le mot de passe</label>
+                    <input type="password" id="registerPasswordConfirm" name="password-confirm" required autocomplete="new-password">
+                </div>
+                <div class="notifications-settings">
                     <h3>Notifications</h3>
-                    <p>Restez informé des derniers événements</p>
+                    <p>Recevez des notifications pour les nouveaux événements</p>
+                    <label class="switch">
+                        <input type="checkbox" id="notifications-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <button type="submit" class="submit-btn">S'inscrire</button>
+            </form>
+            <div id="accountSettings" class="auth-form">
+                <div class="settings-tabs">
+                    <div class="settings-tab active" data-settings="profile">Profil</div>
+                    <div class="settings-tab" data-settings="password">Mot de passe</div>
+                    <div class="settings-tab" data-settings="notifications">Notifications</div>
+                    <div class="settings-tab danger" data-settings="delete">Fermer le compte</div>
+                </div>
+                
+                <form id="profileForm" class="settings-form active">
+                    <div class="form-group">
+                        <label for="updateNom">Nom</label>
+                        <input type="text" id="updateNom" name="nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updatePrenom">Prénom</label>
+                        <input type="text" id="updatePrenom" name="prenom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateEmail">Email</label>
+                        <input type="email" id="updateEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateTel">Téléphone</label>
+                        <input type="tel" id="updateTel" name="telephone" pattern="[0-9]{10}" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Mettre à jour</button>
+                </form>
+
+                <form id="passwordForm" class="settings-form">
+                    <div class="form-group">
+                        <label for="currentPassword">Mot de passe actuel</label>
+                        <input type="password" id="currentPassword" name="currentPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">Nouveau mot de passe</label>
+                        <input type="password" id="newPassword" name="newPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmNewPassword">Confirmer le nouveau mot de passe</label>
+                        <input type="password" id="confirmNewPassword" name="confirmNewPassword" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Changer le mot de passe</button>
+                </form>
+
+                <div id="notificationsForm" class="settings-form">
+                    <div class="notifications-settings">
+                        <h3>Paramètres de notifications</h3>
+                        <p>Recevez des notifications pour :</p>
+                        <div class="notification-option">
+                            <label class="switch">
+                                <input type="checkbox" id="eventNotifications" checked>
+                                <span class="slider round"></span>
+                            </label>
+                            <span>Nouveaux événements</span>
+                        </div>
+                        <div class="notification-option">
+                            <label class="switch">
+                                <input type="checkbox" id="newsNotifications" checked>
+                                <span class="slider round"></span>
+                            </label>
+                            <span>Actualités</span>
+                        </div>
+                    </div>
+                    <button type="button" class="submit-btn" id="saveNotifications">Enregistrer les préférences</button>
+                </div>
+
+                <div id="deleteAccountForm" class="settings-form">
+                    <div class="delete-account-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Attention</h3>
+                        <p>La suppression de votre compte est définitive. Toutes vos données seront effacées.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="deleteConfirmPassword">Confirmez votre mot de passe</label>
+                        <input type="password" id="deleteConfirmPassword" name="deleteConfirmPassword" required>
+                    </div>
+                    <button type="button" class="danger-btn" id="deleteAccount">Supprimer mon compte</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Fonction pour gérer l'inscription
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                const response = await fetch('/api/users/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        nom: document.getElementById('nom').value,
-                        prenom: document.getElementById('prenom').value,
-                        email: document.getElementById('email').value,
-                        telephone: document.getElementById('telephone').value,
-                        password: document.getElementById('password').value
-                    })
-                });
-                
-                const data = await response.json();
-                if (response.ok) {
-                    alert('Inscription réussie !');
-                    localStorage.setItem('token', data.token);
-                    window.location.href = '/events.html';
-                } else {
-                    alert(data.message || 'Erreur lors de l\'inscription');
-                }
-            } catch (error) {
-                alert('Erreur lors de l\'inscription');
-            }
-        });
+    <div class="side-nav">
+        <div class="nav-logo">
+            <div class="nav-logo-img"></div>
+        </div>
+        <div class="nav-links">
+            <div class="side-nav-item" data-section="bureau">
+                <i class="fas fa-crown"></i>
+                <span>Bureau</span>
+            </div>
+            <div class="side-nav-item" data-section="sponsoring">
+                <i class="fas fa-handshake"></i>
+                <span>Sponsoring</span>
+            </div>
+            <div class="side-nav-item" data-section="communication">
+                <i class="fas fa-bullhorn"></i>
+                <span>Communication</span>
+            </div>
+            <div class="side-nav-item" data-section="evenementiel">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Événementiel</span>
+            </div>
+            <div class="side-nav-item" data-section="rh">
+                <i class="fas fa-users"></i>
+                <span>RH</span>
+            </div>
+            <div class="side-nav-item" data-section="actualites">
+                <i class="fas fa-newspaper"></i>
+                <span>Actualités</span>
+                <div class="notification-badge">0</div>
+            </div>
+            <div class="side-nav-item" data-section="about">
+                <i class="fas fa-book-open"></i>
+                <span>Histoire des Pachas</span>
+            </div>
+            <div class="side-nav-item" id="authButton">
+                <i class="fas fa-user"></i>
+                <span>Compte</span>
+            </div>
+        </div>
+    </div>
 
-        // Fonction pour gérer la connexion
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                const response = await fetch('/api/users/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: document.getElementById('loginEmail').value,
-                        password: document.getElementById('loginPassword').value
-                    })
-                });
-                
-                const data = await response.json();
-                if (response.ok) {
-                    alert('Connexion réussie !');
-                    localStorage.setItem('token', data.token);
-                    window.location.href = '/events.html';
-                } else {
-                    alert(data.message || 'Erreur lors de la connexion');
-                }
-            } catch (error) {
-                alert('Erreur lors de la connexion');
-            }
-        });
-    </script>
+    <div class="landing-page">
+        <div class="logo-container">
+            <div class="main-logo"></div>
+            <h1 class="main-title">Les Pachas</h1>
+            <p class="subtitle">BDE ESPOL 2025-2026</p>
+        </div>
+        
+        <nav class="main-nav">
+            <div class="nav-item" data-section="bureau">
+                <i class="fas fa-crown"></i>
+                <span>Bureau</span>
+            </div>
+            <div class="nav-item" data-section="sponsoring">
+                <i class="fas fa-handshake"></i>
+                <span>Pôle Sponsoring</span>
+            </div>
+            <div class="nav-item" data-section="communication">
+                <i class="fas fa-bullhorn"></i>
+                <span>Pôle Communication</span>
+            </div>
+            <div class="nav-item" data-section="evenementiel">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Pôle Événementiel</span>
+            </div>
+            <div class="nav-item" data-section="rh">
+                <i class="fas fa-users"></i>
+                <span>Pôle RH</span>
+            </div>
+            <div class="nav-item" data-section="about">
+                <i class="fas fa-book-open"></i>
+                <span>Histoire des Pachas</span>
+            </div>
+        </nav>
+    </div>
+
+    <div class="sections">
+        <!-- Section Bureau -->
+        <section id="bureau" class="section">
+            <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            <h2 class="section-title">Bureau</h2>
+            <div class="pyramid-container">
+                <div class="pyramid-level presidents">
+                    <div class="member-card">
+                        <div class="member-photo"></div>
+                        <h3>Co-Président</h3>
+                        <p class="member-name">Nom Prénom</p>
+                        <p class="member-desc">Description du rôle</p>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"></div>
+                        <h3>Co-Président</h3>
+                        <p class="member-name">Nom Prénom</p>
+                        <p class="member-desc">Description du rôle</p>
+                    </div>
+                </div>
+                <div class="pyramid-level executives">
+                    <div class="member-card">
+                        <div class="member-photo"></div>
+                        <h3>Co-Trésorier</h3>
+                        <p class="member-name">Nom Prénom</p>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"></div>
+                        <h3>Co-Trésorier</h3>
+                        <p class="member-name">Nom Prénom</p>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"></div>
+                        <h3>Vice-Président</h3>
+                        <p class="member-name">Nom Prénom</p>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"></div>
+                        <h3>Secrétaire</h3>
+                        <p class="member-name">Nom Prénom</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Pôle Sponsoring -->
+        <section id="sponsoring" class="section">
+            <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            <h2 class="section-title">Pôle Sponsoring</h2>
+            <div class="pole-structure">
+                <div class="pole-head">
+                    <div class="member-card">
+                        <div class="member-photo"></div>
+                        <h3>Responsable Sponsoring</h3>
+                        <p class="member-name">Nom Prénom</p>
+                    </div>
+                </div>
+                <div class="pole-members">
+                    <div class="member-row">
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                    </div>
+                    <div class="member-row">
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Pôle Communication -->
+        <section id="communication" class="section">
+            <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            <h2 class="section-title">Pôle Communication</h2>
+            <div class="pole-structure">
+                <div class="pole-head">
+                    <div class="member-card">
+                        <div class="member-photo"></div>
+                        <h3>Responsable Communication</h3>
+                        <p class="member-name">Nom Prénom</p>
+                    </div>
+                </div>
+                <div class="pole-members">
+                    <div class="member-row">
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                    </div>
+                    <div class="member-row">
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Pôle Événementiel -->
+        <section id="evenementiel" class="section">
+            <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            <h2 class="section-title">Pôle Événementiel</h2>
+            <div class="pole-structure">
+                <div class="pole-head">
+                    <div class="member-card">
+                        <div class="member-photo"></div>
+                        <h3>Responsable Événementiel</h3>
+                        <p class="member-name">Nom Prénom</p>
+                    </div>
+                </div>
+                <div class="pole-members">
+                    <div class="member-row">
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                    </div>
+                    <div class="member-row">
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Pôle RH -->
+        <section id="rh" class="section">
+            <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            <h2 class="section-title">Pôle Ressources Humaines</h2>
+            <div class="pole-structure">
+                <div class="pole-head">
+                    <div class="member-card">
+                        <div class="member-photo"></div>
+                        <h3>Responsable RH</h3>
+                        <p class="member-name">Nom Prénom</p>
+                    </div>
+                </div>
+                <div class="pole-members">
+                    <div class="member-row">
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                    </div>
+                    <div class="member-row">
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-photo"></div>
+                            <h3>Membre</h3>
+                            <p class="member-name">Nom Prénom</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Histoire des Pachas -->
+        <section id="about" class="section">
+            <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            <h2 class="section-title">Histoire des Pachas</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Notre Histoire</h3>
+                    <p>Description de l'histoire et des valeurs des Pachas...</p>
+                    
+                    <h3>Notre Mission</h3>
+                    <p>Description de la mission et des objectifs...</p>
+                    
+                    <h3>Nos Valeurs</h3>
+                    <ul>
+                        <li>Valeur 1</li>
+                        <li>Valeur 2</li>
+                        <li>Valeur 3</li>
+                    </ul>
+                </div>
+                <div class="contact-info">
+                    <h3>Contactez-nous</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div class="photo-gallery-link">
+                    <div class="side-nav-item" data-section="gallery">
+                        <i class="fas fa-images"></i>
+                        <span>Photos de la Pacha Family</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Photos de la Pacha Family -->
+        <section id="gallery" class="section">
+            <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            <h2 class="section-title">Photos de la Pacha Family</h2>
+            <div class="gallery-content">
+                <div class="gallery-filters">
+                    <button class="filter-btn active" data-filter="all">Tous</button>
+                    <button class="filter-btn" data-filter="events">Événements</button>
+                    <button class="filter-btn" data-filter="team">Équipe</button>
+                    <button class="filter-btn" data-filter="memories">Souvenirs</button>
+                </div>
+
+                <form id="photoUploadForm" class="photo-upload-form">
+                    <h3>Ajouter une photo</h3>
+                    <div class="form-group">
+                        <input type="file" id="photoInput" accept="image/*" required>
+                        <img id="photoPreview" style="display: none; max-width: 200px; margin-top: 10px;">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="photoTitle" placeholder="Titre de la photo" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="photoDescription" placeholder="Description de la photo"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <select id="photoCategory" required>
+                            <option value="">Sélectionner une catégorie</option>
+                            <option value="events">Événements</option>
+                            <option value="team">Équipe</option>
+                            <option value="memories">Souvenirs</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-photo">Ajouter la photo</button>
+                </form>
+
+                <div class="gallery-grid">
+                    <!-- Les photos seront ajoutées dynamiquement ici -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Actualités -->
+        <section id="actualites" class="section">
+            <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            <h2 class="section-title">Actualités et Événements</h2>
+            <div class="actualites-content">
+                <div class="notifications-settings">
+                    <h3>Paramètres de notifications</h3>
+                    <label class="switch">
+                        <input type="checkbox" id="notifications-toggle">
+                        <span class="slider round"></span>
+                        Activer les notifications
+                    </label>
+                </div>
+                <div class="events-list">
+                    <h3>Prochains événements</h3>
+                    <div class="event-cards">
+                        <!-- Les événements seront ajoutés dynamiquement ici -->
+                    </div>
+                </div>
+                <div class="add-event-form" id="addEventForm">
+                    <h3>Ajouter un événement</h3>
+                    <form id="eventForm">
+                        <input type="text" id="eventTitle" placeholder="Titre de l'événement" required>
+                        <input type="datetime-local" id="eventDate" required>
+                        <textarea id="eventDescription" placeholder="Description de l'événement" required></textarea>
+                        <button type="submit" class="submit-event">Ajouter l'événement</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/main.js"></script>
 </body>
 </html> 
