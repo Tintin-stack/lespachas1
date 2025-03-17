@@ -6,6 +6,7 @@
     --dark-color: #2C2C2C;
     --light-color: #FFFFFF;
     --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --hover-gradient: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
 }
 
 /* Reset et styles de base */
@@ -67,11 +68,14 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
+    color: var(--primary-color);
+    font-weight: bold;
 }
 
 .side-nav-item:hover {
-    background: var(--accent-color);
+    background: var(--gradient);
     color: var(--light-color);
+    transform: translateX(5px);
 }
 
 .side-nav-item i {
@@ -94,10 +98,16 @@ body {
     padding: 20px;
     text-align: center;
     color: var(--light-color);
+    background: rgba(0, 0, 0, 0.5);
+    position: relative;
 }
 
 .logo-container {
     margin-bottom: 50px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .main-logo {
@@ -110,16 +120,20 @@ body {
 
 .main-title {
     font-family: 'Playfair Display', serif;
-    font-size: 4rem;
+    font-size: 5.5rem;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    color: var(--secondary-color);  /* Titre en or */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: var(--secondary-color);
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
 .subtitle {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     opacity: 0.9;
-    color: var(--accent-color);  /* Sous-titre en or clair */
+    color: var(--accent-color);
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Styles de la navigation principale */
@@ -130,10 +144,15 @@ body {
     gap: 20px;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 20px;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .nav-item {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--primary-color);
     padding: 15px 30px;
     border-radius: 30px;
     cursor: pointer;
@@ -141,15 +160,48 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    color: var(--light-color);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
 }
 
 .nav-item:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-3px);
+    transform: translateY(-3px) scale(1.05);
+    background: var(--hover-gradient);
+    box-shadow: 0 0 20px var(--accent-color);
+}
+
+.nav-item:hover::before {
+    left: 100%;
 }
 
 .nav-item i {
     font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-item:hover i {
+    transform: scale(1.2);
 }
 
 /* Styles des sections */
@@ -158,18 +210,25 @@ body {
     padding: 100px 20px 20px;
     min-height: 100vh;
     background: var(--light-color);
+    margin-left: 80px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .section.active {
     display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .section-title {
     font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
-    color: var(--secondary-color);  /* Titres de section en or */
+    color: var(--secondary-color);
     margin-bottom: 30px;
     text-align: center;
+    font-weight: bold;
 }
 
 /* Styles des formulaires */
@@ -199,12 +258,13 @@ body {
     display: block;
     margin-bottom: 5px;
     color: var(--dark-color);
+    font-weight: bold;
 }
 
 .form-group input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 2px solid var(--secondary-color);
     border-radius: 5px;
     font-size: 1rem;
 }
@@ -226,21 +286,83 @@ body {
 
 .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);  /* Ombre dorée */
+    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);
 }
 
-/* Styles des cartes de membres */
+/* Styles pour la présentation pyramidale des pôles */
+.pole-presentation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.responsable {
+    margin-bottom: 60px;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.responsable .member-card {
+    transform: scale(1.1);
+    background: var(--gradient);
+    color: var(--light-color);
+}
+
+.responsable .member-name,
+.responsable .member-role,
+.responsable .member-description {
+    color: var(--light-color);
+}
+
+.members-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
 .member-card {
     background: var(--light-color);
-    border-radius: 10px;
+    border-radius: 15px;
     padding: 20px;
     text-align: center;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    border: 2px solid var(--primary-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.member-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(218, 165, 32, 0.2),
+        transparent
+    );
+    transition: 0.5s;
 }
 
 .member-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(218, 165, 32, 0.3);
+    border-color: var(--secondary-color);
+}
+
+.member-card:hover::before {
+    left: 100%;
 }
 
 .member-photo {
@@ -248,20 +370,62 @@ body {
     height: 150px;
     border-radius: 50%;
     margin: 0 auto 15px;
-    background-size: cover;
-    background-position: center;
+    background: var(--primary-color);
+    border: 3px solid var(--secondary-color);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light-color);
+    font-size: 2rem;
 }
 
-/* Styles des notifications */
-.notification-badge {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: var(--primary-color);
+.member-card:hover .member-photo {
+    transform: scale(1.05);
+    border-color: var(--accent-color);
+}
+
+.member-name {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.member-role {
+    color: var(--secondary-color);
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.member-description {
+    color: var(--dark-color);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Styles du bouton retour */
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 100px;
+    background: var(--gradient);
     color: var(--light-color);
-    font-size: 0.7rem;
-    padding: 2px 6px;
-    border-radius: 10px;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.back-button:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);
 }
 
 /* Styles du bouton de musique */
@@ -313,6 +477,11 @@ body {
 
     .section {
         padding-top: 80px;
+        margin-left: 0;
+    }
+
+    .back-button {
+        left: 20px;
     }
 }
 
@@ -330,4 +499,119 @@ body {
 
 .fade-in {
     animation: fadeIn 0.5s ease forwards;
+}
+
+/* Styles pour la section d'ajout d'événements */
+.event-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.event-form {
+    background: var(--light-color);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.event-form .form-group {
+    margin-bottom: 20px;
+}
+
+.event-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.event-form input[type="text"],
+.event-form input[type="datetime-local"],
+.event-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.event-form input[type="text"]:focus,
+.event-form input[type="datetime-local"]:focus,
+.event-form textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(178, 34, 34, 0.2);
+    outline: none;
+}
+
+.event-form textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.event-form .submit-btn {
+    background: var(--gradient);
+    color: var(--light-color);
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.event-form .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);
+}
+
+/* Styles pour les sections admin */
+.admin-section {
+    display: none;
+}
+
+.admin-section.visible {
+    display: block;
+}
+
+/* Message Admin */
+.admin-banner {
+    position: fixed;
+    top: 20px;
+    left: 100px;
+    background: var(--gradient);
+    color: var(--light-color);
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    z-index: 1001;
+    display: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.5s ease;
+}
+
+.admin-banner.visible {
+    display: block;
+}
+
+.admin-banner i {
+    margin-right: 8px;
+    color: var(--accent-color);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 } 

@@ -6,17 +6,31 @@ const eventSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    description: {
-        type: String,
-        required: true
-    },
     date: {
         type: Date,
         required: true
     },
     location: {
         type: String,
+        required: true,
+        trim: true
+    },
+    description: {
+        type: String,
         required: true
+    },
+    image: {
+        type: String,
+        default: null
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     },
     capacity: {
         type: Number,
@@ -28,26 +42,13 @@ const eventSchema = new mongoose.Schema({
         required: true,
         min: 0
     },
-    organizer: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
     participants: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
-    image: {
-        type: String,
-        default: null
-    },
     isPublished: {
         type: Boolean,
         default: false
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
     },
     updatedAt: {
         type: Date,
@@ -56,6 +57,9 @@ const eventSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+// Index pour la recherche d'événements
+eventSchema.index({ title: 'text', description: 'text' });
 
 // Méthode pour vérifier si un événement est complet
 eventSchema.methods.isFull = function() {

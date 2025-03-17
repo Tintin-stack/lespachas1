@@ -46,4 +46,9 @@ userSchema.methods.matchPassword = async function(enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
+// Méthode pour vérifier si l'utilisateur est admin
+userSchema.methods.isAdmin = function() {
+    return this.role === 'admin';
+};
+
 module.exports = mongoose.model('User', userSchema); 
