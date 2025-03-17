@@ -25,28 +25,23 @@
     </button>
 </head>
 <body>
+    <!-- Éléments de cabaret -->
+    <div class="cabaret-element cabaret-glove cabaret-left-top"></div>
+    <div class="cabaret-element cabaret-cigarette cabaret-left-bottom"></div>
+    <div class="cabaret-element cabaret-card cabaret-right-top"></div>
+    <div class="cabaret-element cabaret-glove cabaret-right-bottom"></div>
+
     <!-- Modal de connexion/inscription -->
     <div class="overlay"></div>
     <div class="account-section">
         <button class="close-account">&times;</button>
         <h2 class="section-title">Mon Compte</h2>
         <div class="account-tabs">
-            <div class="account-tab active" data-tab="login">Connexion</div>
             <div class="account-tab" data-tab="register">Inscription</div>
+            <div class="account-tab active" data-tab="login">Connexion</div>
         </div>
         <div class="auth-form-container">
-            <form id="loginForm" class="auth-form active">
-                <div class="form-group">
-                    <label for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">Mot de passe</label>
-                    <input type="password" id="loginPassword" name="password" required>
-                </div>
-                <button type="submit" class="submit-btn">Se connecter</button>
-            </form>
-            <form id="registerForm" class="auth-form">
+            <form id="registerForm" class="auth-form active">
                 <div class="form-group">
                     <label for="registerNom">Nom</label>
                     <input type="text" id="registerNom" name="nom" required>
@@ -64,6 +59,19 @@
                     <input type="password" id="registerPassword" name="password" required>
                 </div>
                 <button type="submit" class="submit-btn">S'inscrire</button>
+                <p class="switch-form">Vous avez déjà un compte ? <a href="#" class="switch-to-login">Cliquez ici</a></p>
+            </form>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Mot de passe</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <button type="submit" class="submit-btn">Se connecter</button>
+                <p class="switch-form">Pas encore de compte ? <a href="#" class="switch-to-register">Cliquez ici</a></p>
             </form>
         </div>
     </div>
@@ -164,16 +172,40 @@
                         <div class="member-photo">
                             <i class="fas fa-user"></i>
                         </div>
-                        <h3 class="member-name">Vice-Président</h3>
-                        <p class="member-role">Second du Bureau</p>
-                        <p class="member-description">Assiste le président et le remplace en cas d'absence.</p>
+                        <h3 class="member-name">Co-Président 1</h3>
+                        <p class="member-role">Co-Président</p>
+                        <p class="member-description">Partage la direction avec le président.</p>
                     </div>
                     <div class="member-card">
                         <div class="member-photo">
                             <i class="fas fa-user"></i>
                         </div>
-                        <h3 class="member-name">Trésorier</h3>
-                        <p class="member-role">Gestionnaire Financier</p>
+                        <h3 class="member-name">Co-Président 2</h3>
+                        <p class="member-role">Co-Président</p>
+                        <p class="member-description">Partage la direction avec le président.</p>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="member-name">Vice-Président</h3>
+                        <p class="member-role">Second du Bureau</p>
+                        <p class="member-description">Assiste les présidents et les remplace en cas d'absence.</p>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="member-name">Co-Trésorier 1</h3>
+                        <p class="member-role">Co-Trésorier</p>
+                        <p class="member-description">Gère le budget et les finances du BDE.</p>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="member-name">Co-Trésorier 2</h3>
+                        <p class="member-role">Co-Trésorier</p>
                         <p class="member-description">Gère le budget et les finances du BDE.</p>
                     </div>
                     <div class="member-card">
@@ -266,20 +298,56 @@
         <section id="evenementiel" class="section">
             <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
             <h2 class="section-title">Pôle Événementiel</h2>
-            <div class="members-grid">
-                <!-- Responsable Événementiel -->
-                <div class="member-card">
-                    <div class="member-photo" style="background-image: url('../assets/images/members/event-resp.jpg')"></div>
-                    <h3 class="member-name">Responsable Événementiel</h3>
-                    <p class="member-role">Chef du Pôle</p>
-                    <p class="member-description">Coordonne l'organisation des événements du BDE.</p>
+            <div class="pole-presentation">
+                <div class="responsable">
+                    <div class="member-card">
+                        <div class="member-photo">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3 class="member-name">Responsable Événementiel</h3>
+                        <p class="member-role">Chef du Pôle</p>
+                        <p class="member-description">Coordonne l'organisation des événements du BDE.</p>
+                    </div>
                 </div>
-                <!-- Membres du Pôle -->
-                <div class="member-card">
-                    <div class="member-photo" style="background-image: url('../assets/images/members/event-1.jpg')"></div>
-                    <h3 class="member-name">Membre Événementiel</h3>
-                    <p class="member-role">Organisateur d'Événements</p>
-                    <p class="member-description">Participe à l'organisation et à la logistique des événements.</p>
+                <div class="members-grid">
+                    <div class="member-card">
+                        <div class="member-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="member-name">Membre 1</h3>
+                        <p class="member-role">Organisateur d'Événements</p>
+                        <p class="member-description">Participe à l'organisation et à la logistique des événements.</p>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="member-name">Membre 2</h3>
+                        <p class="member-role">Organisateur d'Événements</p>
+                        <p class="member-description">Participe à l'organisation et à la logistique des événements.</p>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="member-name">Membre 3</h3>
+                        <p class="member-role">Organisateur d'Événements</p>
+                        <p class="member-description">Participe à l'organisation et à la logistique des événements.</p>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="member-name">Membre 4</h3>
+                        <p class="member-role">Organisateur d'Événements</p>
+                        <p class="member-description">Participe à l'organisation et à la logistique des événements.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="events-container">
+                <h3 class="events-title">Événements à venir</h3>
+                <div class="events-grid">
+                    <!-- Les événements seront ajoutés dynamiquement via JavaScript -->
                 </div>
             </div>
         </section>

@@ -6,56 +6,73 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeAccount = document.querySelector('.close-account');
     const accountTabs = document.querySelectorAll('.account-tab');
     const authForms = document.querySelectorAll('.auth-form');
+    const switchToLogin = document.querySelector('.switch-to-login');
+    const switchToRegister = document.querySelector('.switch-to-register');
 
     // Ne pas afficher le modal au chargement
     accountSection.style.display = 'none';
     overlay.style.display = 'none';
 
-    // Ouvrir le modal uniquement quand on clique sur le bouton compte
-    authButton.addEventListener('click', function() {
+    // Fonction pour afficher le modal
+    function showAccountModal() {
         accountSection.style.display = 'block';
         overlay.style.display = 'block';
-        accountSection.classList.add('fade-in');
-    });
+        setTimeout(() => {
+            accountSection.classList.add('active');
+            overlay.classList.add('active');
+        }, 10);
+    }
 
-    // Fermer le modal
-    closeAccount.addEventListener('click', function() {
-        accountSection.classList.remove('fade-in');
+    // Fonction pour cacher le modal
+    function hideAccountModal() {
+        accountSection.classList.remove('active');
+        overlay.classList.remove('active');
         setTimeout(() => {
             accountSection.style.display = 'none';
             overlay.style.display = 'none';
         }, 300);
-    });
+    }
 
-    overlay.addEventListener('click', function() {
-        accountSection.classList.remove('fade-in');
-        setTimeout(() => {
-            accountSection.style.display = 'none';
-            overlay.style.display = 'none';
-        }, 300);
-    });
+    // Événements pour le modal
+    authButton.addEventListener('click', showAccountModal);
+    closeAccount.addEventListener('click', hideAccountModal);
+    overlay.addEventListener('click', hideAccountModal);
 
-    // Gestion des onglets du modal
+    // Gestion des onglets
     accountTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            accountTabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
+        tab.addEventListener('click', () => {
+            const targetTab = tab.dataset.tab;
             
-            const targetForm = this.dataset.tab;
+            // Mise à jour des onglets actifs
+            accountTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            // Mise à jour des formulaires
             authForms.forEach(form => {
                 form.classList.remove('active');
-                if (form.id === `${targetForm}Form`) {
+                if (form.id === `${targetTab}Form`) {
                     form.classList.add('active');
                 }
             });
         });
     });
 
+    // Gestion du changement de formulaire
+    switchToLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector('[data-tab="login"]').click();
+    });
+
+    switchToRegister.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector('[data-tab="register"]').click();
+    });
+
     // Gestion de la navigation
-    const navItems = document.querySelectorAll('.nav-item, .side-nav-item');
     const sections = document.querySelectorAll('.section');
-    const landingPage = document.querySelector('.landing-page');
+    const navItems = document.querySelectorAll('.nav-item, .side-nav-item');
     const backButtons = document.querySelectorAll('.back-button');
+    const landingPage = document.querySelector('.landing-page');
 
     // Cacher toutes les sections au chargement
     sections.forEach(section => {
@@ -65,46 +82,51 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fonction pour afficher une section
     function showSection(sectionId) {
-        landingPage.style.display = 'none';
+        // Cacher toutes les sections
         sections.forEach(section => {
-            if (section.id === sectionId) {
-                section.style.display = 'block';
-                // Petit délai pour permettre l'animation
-                setTimeout(() => {
-                    section.classList.add('active');
-                }, 50);
-            } else {
-                section.classList.remove('active');
-                section.style.display = 'none';
-            }
+            section.style.display = 'none';
+            section.classList.remove('active');
         });
+
+        // Cacher la page d'accueil
+        landingPage.style.display = 'none';
+
+        // Afficher la section demandée
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+            targetSection.style.display = 'block';
+            setTimeout(() => {
+                targetSection.classList.add('active');
+            }, 10);
+        }
+
+        // Cacher le modal de compte si ouvert
+        hideAccountModal();
     }
 
-    // Gestion des clics sur les éléments de navigation
+    function showLandingPage() {
+        // Cacher toutes les sections
+        sections.forEach(section => {
+            section.style.display = 'none';
+            section.classList.remove('active');
+        });
+
+        // Afficher la page d'accueil
+        landingPage.style.display = 'flex';
+    }
+
+    // Événements de navigation
     navItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const targetSection = this.dataset.section;
-            if (targetSection) {
-                showSection(targetSection);
+        item.addEventListener('click', () => {
+            const sectionId = item.dataset.section;
+            if (sectionId) {
+                showSection(sectionId);
             }
         });
     });
 
-    // Gestion des boutons retour
     backButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            sections.forEach(section => {
-                section.classList.remove('active');
-                setTimeout(() => {
-                    section.style.display = 'none';
-                }, 300);
-            });
-            landingPage.style.display = 'flex';
-            landingPage.classList.add('fade-in');
-            setTimeout(() => {
-                landingPage.classList.remove('fade-in');
-            }, 500);
-        });
+        button.addEventListener('click', showLandingPage);
     });
 
     // Gestion de la musique
@@ -112,13 +134,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const bgMusic = document.getElementById('bgMusic');
     let isMusicPlaying = false;
 
-    musicToggle.addEventListener('click', function() {
+    musicToggle.addEventListener('click', () => {
         if (isMusicPlaying) {
             bgMusic.pause();
-            musicToggle.classList.remove('playing');
+            musicToggle.innerHTML = '<i class="fas fa-music"></i>';
         } else {
             bgMusic.play();
-            musicToggle.classList.add('playing');
+            musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
         }
         isMusicPlaying = !isMusicPlaying;
     });
@@ -289,4 +311,27 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Erreur:', error);
         }
     }
+
+    // Chargement des événements
+    function loadEvents() {
+        fetch('/api/events')
+            .then(response => response.json())
+            .then(events => {
+                const eventsGrid = document.querySelector('.events-grid');
+                if (eventsGrid) {
+                    eventsGrid.innerHTML = events.map(event => `
+                        <div class="event-card">
+                            <div class="event-date">${new Date(event.date).toLocaleDateString()}</div>
+                            <h3 class="event-title">${event.title}</h3>
+                            <p class="event-description">${event.description}</p>
+                            <p class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.location}</p>
+                        </div>
+                    `).join('');
+                }
+            })
+            .catch(error => console.error('Erreur lors du chargement des événements:', error));
+    }
+
+    // Charger les événements au chargement de la page
+    loadEvents();
 }); 

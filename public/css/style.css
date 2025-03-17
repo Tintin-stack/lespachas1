@@ -1,12 +1,12 @@
 /* Variables globales */
 :root {
-    --primary-color: #B22222;  /* Rouge foncé */
-    --secondary-color: #DAA520;  /* Or */
-    --accent-color: #FFD700;  /* Or plus clair */
-    --dark-color: #2C2C2C;
+    --primary-color: #800000;  /* Rouge bordeaux */
+    --secondary-color: #000000;  /* Noir */
+    --accent-color: #DAA520;  /* Or */
+    --dark-color: #000000;
     --light-color: #FFFFFF;
     --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    --hover-gradient: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+    --hover-gradient: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
 }
 
 /* Reset et styles de base */
@@ -23,6 +23,73 @@ body {
     color: var(--dark-color);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    z-index: -1;
+}
+
+/* Éléments de cabaret */
+.cabaret-element {
+    position: fixed;
+    z-index: 1;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.cabaret-element:hover {
+    opacity: 1;
+}
+
+.cabaret-glove {
+    width: 100px;
+    height: 200px;
+    background: url('../assets/images/cabaret/glove.png') no-repeat center center;
+    background-size: contain;
+}
+
+.cabaret-cigarette {
+    width: 150px;
+    height: 20px;
+    background: url('../assets/images/cabaret/cigarette.png') no-repeat center center;
+    background-size: contain;
+}
+
+.cabaret-card {
+    width: 80px;
+    height: 120px;
+    background: url('../assets/images/cabaret/card.png') no-repeat center center;
+    background-size: contain;
+}
+
+/* Positionnement des éléments de cabaret */
+.cabaret-left-top {
+    top: 10%;
+    left: 5%;
+}
+
+.cabaret-left-bottom {
+    bottom: 10%;
+    left: 5%;
+}
+
+.cabaret-right-top {
+    top: 10%;
+    right: 5%;
+}
+
+.cabaret-right-bottom {
+    bottom: 10%;
+    right: 5%;
 }
 
 /* Styles de la barre latérale */
@@ -32,10 +99,11 @@ body {
     top: 0;
     height: 100vh;
     width: 80px;
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    background: var(--secondary-color);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     transition: all 0.3s ease;
+    border-right: 2px solid var(--primary-color);
 }
 
 .nav-logo {
@@ -100,6 +168,10 @@ body {
     color: var(--light-color);
     background: rgba(0, 0, 0, 0.5);
     position: relative;
+}
+
+.landing-page::before {
+    display: none;
 }
 
 .logo-container {
@@ -209,11 +281,14 @@ body {
     display: none;
     padding: 100px 20px 20px;
     min-height: 100vh;
-    background: var(--light-color);
+    background: rgba(255, 255, 255, 0.95);
     margin-left: 80px;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.5s ease, transform 0.5s ease;
+    border-radius: 20px;
+    margin: 80px 20px 20px 100px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .section.active {
@@ -612,6 +687,175 @@ body {
     }
     to {
         transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Styles du modal de compte */
+.account-section {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--light-color);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    z-index: 1002;
+    display: none;
+    max-width: 500px;
+    width: 90%;
+}
+
+.account-section.active {
+    display: block;
+    animation: modalFadeIn 0.3s ease;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1001;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+    animation: overlayFadeIn 0.3s ease;
+}
+
+.close-account {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+.close-account:hover {
+    color: var(--secondary-color);
+}
+
+.account-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.account-tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--dark-color);
+    font-weight: bold;
+}
+
+.account-tab.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    margin-bottom: -2px;
+}
+
+.switch-form {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--dark-color);
+}
+
+.switch-form a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.switch-form a:hover {
+    color: var(--secondary-color);
+}
+
+/* Styles pour les événements */
+.events-container {
+    margin-top: 40px;
+    padding: 20px;
+}
+
+.events-title {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+.event-card {
+    background: var(--light-color);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-color);
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(218, 165, 32, 0.3);
+    border-color: var(--secondary-color);
+}
+
+.event-date {
+    color: var(--secondary-color);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.event-title {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.event-description {
+    color: var(--dark-color);
+    margin-bottom: 15px;
+}
+
+.event-location {
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+/* Animations */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes overlayFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
         opacity: 1;
     }
 } 
