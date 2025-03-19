@@ -106,7 +106,6 @@ body::before {
     align-items: center;
     padding: 20px 0;
     z-index: 1000;
-    transition: transform 0.3s ease-out;
 }
 
 .nav-logo {
@@ -139,19 +138,42 @@ body::before {
     overflow: hidden;
 }
 
+.sidebar-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(218, 165, 32, 0.4),
+        transparent
+    );
+    transition: 0.5s;
+}
+
 .sidebar-item:hover {
     background: var(--gradient-primary);
     transform: scale(1.05);
+    box-shadow: 0 0 15px var(--secondary-color);
+}
+
+.sidebar-item:hover::before {
+    left: 100%;
 }
 
 .sidebar-item.active {
     background: var(--gradient-primary);
     transform: scale(1.05);
+    box-shadow: 0 0 15px var(--secondary-color);
 }
 
 .sidebar-item i {
     font-size: 24px;
     margin-bottom: 5px;
+    color: var(--secondary-color);
 }
 
 .sidebar-item span {
@@ -166,12 +188,12 @@ body::before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 20px;
     text-align: center;
     color: var(--light-color);
     position: relative;
-    transition: opacity 0.3s ease-out;
+    overflow-y: auto;
 }
 
 .landing-page::before {
@@ -186,11 +208,9 @@ body::before {
 }
 
 .logo-container {
-    margin-bottom: 50px;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-top: 10vh;
+    position: relative;
+    z-index: 2;
 }
 
 .main-logo {
@@ -250,6 +270,7 @@ body::before {
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--secondary-color);
 }
 
 .nav-item::before {
@@ -262,7 +283,7 @@ body::before {
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(255, 255, 255, 0.2),
+        rgba(218, 165, 32, 0.4),
         transparent
     );
     transition: 0.5s;
@@ -271,7 +292,7 @@ body::before {
 .nav-item:hover {
     transform: translateY(-3px) scale(1.05);
     background: var(--gradient-primary);
-    box-shadow: 0 0 20px var(--accent-color);
+    box-shadow: 0 0 20px var(--secondary-color);
 }
 
 .nav-item:hover::before {
@@ -281,6 +302,7 @@ body::before {
 .nav-item i {
     font-size: 1.2rem;
     transition: transform 0.3s ease;
+    color: var(--secondary-color);
 }
 
 .nav-item:hover i {
