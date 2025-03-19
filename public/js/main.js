@@ -1,42 +1,32 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Gestion du modal de connexion
-    const accountSection = document.querySelector('.account-section');
-    const overlay = document.querySelector('.overlay');
+    const accountModal = document.querySelector('.account-modal');
+    const modalClose = document.querySelector('.modal-close');
     const authButton = document.getElementById('authButton');
-    const closeAccount = document.querySelector('.close-account');
     const accountTabs = document.querySelectorAll('.account-tab');
     const authForms = document.querySelectorAll('.auth-form');
     const switchToLogin = document.querySelector('.switch-to-login');
     const switchToRegister = document.querySelector('.switch-to-register');
 
-    // Ne pas afficher le modal au chargement
-    accountSection.style.display = 'none';
-    overlay.style.display = 'none';
-
     // Fonction pour afficher le modal
     function showAccountModal() {
-        accountSection.style.display = 'block';
-        overlay.style.display = 'block';
+        accountModal.style.display = 'block';
         setTimeout(() => {
-            accountSection.classList.add('active');
-            overlay.classList.add('active');
+            accountModal.classList.add('active');
         }, 10);
     }
 
     // Fonction pour cacher le modal
     function hideAccountModal() {
-        accountSection.classList.remove('active');
-        overlay.classList.remove('active');
+        accountModal.classList.remove('active');
         setTimeout(() => {
-            accountSection.style.display = 'none';
-            overlay.style.display = 'none';
+            accountModal.style.display = 'none';
         }, 300);
     }
 
     // Événements pour le modal
     authButton.addEventListener('click', showAccountModal);
-    closeAccount.addEventListener('click', hideAccountModal);
-    overlay.addEventListener('click', hideAccountModal);
+    modalClose.addEventListener('click', hideAccountModal);
 
     // Gestion des onglets
     accountTabs.forEach(tab => {
@@ -70,15 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Gestion de la navigation
     const sections = document.querySelectorAll('.section');
-    const navItems = document.querySelectorAll('.nav-item, .side-nav-item');
+    const navItems = document.querySelectorAll('.nav-item, .sidebar-item');
     const backButtons = document.querySelectorAll('.back-button');
     const landingPage = document.querySelector('.landing-page');
-
-    // Cacher toutes les sections au chargement
-    sections.forEach(section => {
-        section.style.display = 'none';
-        section.classList.remove('active');
-    });
 
     // Fonction pour afficher une section
     function showSection(sectionId) {
@@ -104,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
         hideAccountModal();
     }
 
+    // Fonction pour afficher la page d'accueil
     function showLandingPage() {
         // Cacher toutes les sections
         sections.forEach(section => {

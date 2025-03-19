@@ -318,7 +318,7 @@ body::before {
     margin-left: 80px;
     opacity: 0;
     transform: translateY(20px);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.5s ease, transform 0.5s ease;
     border-radius: 20px;
     margin: 80px 20px 20px 100px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
@@ -329,7 +329,6 @@ body::before {
     display: block;
     opacity: 1;
     transform: translateY(0);
-    animation: fadeIn 0.5s ease-out;
 }
 
 .section-title {
@@ -350,14 +349,15 @@ body::before {
 
 .auth-form {
     display: none;
-    background: var(--light-color);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
 }
 
 .auth-form.active {
     display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .form-group {
@@ -373,10 +373,17 @@ body::before {
 
 .form-group input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 2px solid var(--secondary-color);
     border-radius: 5px;
     font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(128, 0, 0, 0.2);
 }
 
 .submit-btn {
@@ -392,6 +399,7 @@ body::before {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: bold;
+    margin-top: 20px;
 }
 
 .submit-btn:hover {
@@ -777,57 +785,46 @@ body::before {
     }
 }
 
-/* Styles du modal de connexion/inscription */
+/* Styles du modal de connexion */
 .account-modal {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background: var(--light-color);
+    border-radius: 15px;
+    padding: 20px;
     z-index: 2000;
     opacity: 0;
     transition: opacity 0.3s ease;
+    border: 2px solid var(--secondary-color);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .account-modal.active {
-    display: flex;
     opacity: 1;
-}
-
-.modal-content {
-    background: var(--light-color);
-    padding: 30px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 400px;
-    margin: auto;
-    position: relative;
-    transform: translateY(-20px);
-    transition: transform 0.3s ease;
-}
-
-.account-modal.active .modal-content {
-    transform: translateY(0);
 }
 
 .modal-close {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
     font-size: 24px;
     cursor: pointer;
-    color: var(--primary-color);
+    color: var(--dark-color);
     transition: color 0.3s ease;
 }
 
 .modal-close:hover {
-    color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .account-tabs {
     display: flex;
+    justify-content: center;
     margin-bottom: 20px;
     border-bottom: 2px solid var(--secondary-color);
 }
@@ -840,59 +837,26 @@ body::before {
     position: relative;
 }
 
-.account-tab.active {
-    color: var(--primary-color);
-}
-
-.account-tab.active::after {
+.account-tab::after {
     content: '';
     position: absolute;
     bottom: -2px;
     left: 0;
     width: 100%;
     height: 2px;
-    background: var(--gradient-primary);
+    background: var(--secondary-color);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
 }
 
-.account-form {
-    display: none;
+.account-tab:hover::after,
+.account-tab.active::after {
+    transform: scaleX(1);
 }
 
-.account-form.active {
-    display: block;
-    animation: fadeIn 0.3s ease-out;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: border-color 0.3s ease;
-}
-
-.form-group input:focus {
-    border-color: var(--primary-color);
-    outline: none;
-}
-
-.switch-form {
-    text-align: center;
-    margin-top: 15px;
-}
-
-.switch-form a {
+.account-tab.active {
     color: var(--primary-color);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.switch-form a:hover {
-    color: var(--secondary-color);
+    font-weight: bold;
 }
 
 /* Styles pour la section Histoire */
@@ -975,4 +939,26 @@ body::before {
 .cabaret-cigarette,
 .cabaret-card {
     animation: float 3s ease-in-out infinite;
+}
+
+/* Mise à jour des transitions pour les sections */
+.section {
+    display: none;
+    padding: 100px 20px 20px;
+    min-height: 100vh;
+    background: rgba(128, 0, 0, 0.85);
+    margin-left: 80px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    border-radius: 20px;
+    margin: 80px 20px 20px 100px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--secondary-color);
+}
+
+.section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
 } 
