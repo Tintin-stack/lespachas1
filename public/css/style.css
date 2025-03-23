@@ -556,6 +556,13 @@ body {
 @media (max-width: 1024px) {
     .main-nav {
         grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        padding: 0 30px;
+    }
+
+    .nav-item {
+        min-height: 180px;
+        padding: 25px;
     }
 }
 
@@ -570,15 +577,19 @@ body {
 
     .section {
         margin-left: 60px;
+        padding: 80px 30px 30px;
     }
 
     .back-button {
         left: 70px;
+        top: 30px;
+        padding: 12px 25px;
     }
 
     .member-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
+        gap: 30px;
+        padding: 30px;
     }
 
     .member-photo {
@@ -592,17 +603,85 @@ body {
 
     .main-nav {
         grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 0 20px;
+        margin-top: 40px;
+    }
+
+    .nav-item {
+        min-height: 160px;
+        padding: 20px;
+    }
+
+    .logo-container {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    .main-title {
+        font-size: 3.5rem;
+        margin-bottom: 15px;
+        top: -30px;
+    }
+
+    .subtitle {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+        top: -30px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 40px;
+    }
+
+    .pole-card {
+        margin: 30px 20px;
+        padding: 20px;
+    }
+
+    .pole-photo {
+        height: 300px;
+    }
+
+    .events-container {
+        margin: 40px 20px;
+        padding: 25px;
+    }
+
+    .event-card {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .history-section {
+        padding: 20px;
+        gap: 40px;
+    }
+
+    .history-part {
+        padding: 25px;
+    }
+
+    .values-list {
+        gap: 15px;
+    }
+
+    .values-list li {
+        padding: 12px 25px;
     }
 }
 
 @media (max-width: 480px) {
     .section {
-        margin: 60px 10px 10px 70px;
-        padding: 80px 10px 10px;
+        margin: 60px 15px 15px 75px;
+        padding: 70px 15px 15px;
     }
 
     .member-grid {
         grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 20px;
     }
 
     .member-photo {
@@ -611,7 +690,89 @@ body {
 
     .modal-content {
         width: 95%;
+        padding: 25px;
+    }
+
+    .logo-container {
+        width: 250px;
+        height: 250px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .main-title {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        font-size: 1.3rem;
+        margin-bottom: 25px;
+    }
+
+    .nav-item {
+        min-height: 140px;
+        padding: 15px;
+    }
+
+    .nav-item i {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .nav-item span {
+        font-size: 1.1rem;
+    }
+
+    .pole-card {
+        margin: 20px 15px;
+        padding: 15px;
+    }
+
+    .pole-photo {
+        height: 250px;
+    }
+
+    .events-container {
+        margin: 30px 15px;
         padding: 20px;
+    }
+
+    .event-card {
+        padding: 15px;
+    }
+
+    .history-section {
+        padding: 15px;
+        gap: 30px;
+    }
+
+    .history-part {
+        padding: 20px;
+    }
+
+    .history-part h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+    .history-part p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .values-list li {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .social-links {
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .social-links a {
+        font-size: 1.8rem;
     }
 }
 
