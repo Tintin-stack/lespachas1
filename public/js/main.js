@@ -12,10 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const switchToRegister = document.querySelector('.switch-to-register');
     const backButtons = document.querySelectorAll('.back-button');
 
-    // Initialisation : cacher toutes les sections sauf la landing page
+    // Initialisation : afficher la landing page immédiatement
     sections.forEach(section => {
         section.style.display = 'none';
-        section.classList.remove('active');
     });
     landingPage.style.display = 'flex';
 
@@ -23,20 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function showAccountModal() {
         modalOverlay.style.display = 'block';
         accountModal.style.display = 'block';
-        setTimeout(() => {
-            modalOverlay.classList.add('active');
-            accountModal.classList.add('active');
-        }, 10);
     }
 
     // Fonction pour cacher le modal
     function hideAccountModal() {
-        modalOverlay.classList.remove('active');
-        accountModal.classList.remove('active');
-        setTimeout(() => {
-            modalOverlay.style.display = 'none';
-            accountModal.style.display = 'none';
-        }, 300);
+        modalOverlay.style.display = 'none';
+        accountModal.style.display = 'none';
     }
 
     // Événements du modal
@@ -52,59 +43,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fonction pour afficher une section
     function showSection(sectionId) {
-        const curtainContainer = document.querySelector('.curtain-container');
-        
-        // Fermer les rideaux
-        curtainContainer.classList.remove('curtain-open');
-        
-        setTimeout(() => {
-            // Cacher la landing page
-            landingPage.style.display = 'none';
+        landingPage.style.display = 'none';
+        sections.forEach(section => {
+            section.style.display = 'none';
+        });
 
-            // Cacher toutes les sections
-            sections.forEach(section => {
-                section.style.display = 'none';
-                section.classList.remove('active');
-            });
-
-            // Afficher la section demandée
-            const targetSection = document.getElementById(sectionId);
-            if (targetSection) {
-                targetSection.style.display = 'block';
-                setTimeout(() => {
-                    targetSection.classList.add('active');
-                }, 10);
-            }
-
-            // Cacher le modal de compte
-            hideAccountModal();
-
-            // Ouvrir les rideaux après le changement de section
-            setTimeout(() => {
-                curtainContainer.classList.add('curtain-open');
-            }, 500);
-        }, 1000);
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+            targetSection.style.display = 'block';
+        }
+        hideAccountModal();
     }
 
     // Fonction pour revenir à la page d'accueil
     function showLandingPage() {
-        const curtainContainer = document.querySelector('.curtain-container');
-        
-        // Fermer les rideaux
-        curtainContainer.classList.remove('curtain-open');
-        
-        setTimeout(() => {
-            sections.forEach(section => {
-                section.style.display = 'none';
-                section.classList.remove('active');
-            });
-            landingPage.style.display = 'flex';
-
-            // Ouvrir les rideaux après le retour à l'accueil
-            setTimeout(() => {
-                curtainContainer.classList.add('curtain-open');
-            }, 500);
-        }, 1000);
+        sections.forEach(section => {
+            section.style.display = 'none';
+        });
+        landingPage.style.display = 'flex';
     }
 
     // Gestion des clics sur les éléments de navigation
@@ -130,20 +86,24 @@ document.addEventListener('DOMContentLoaded', function() {
     accountTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const targetTab = tab.getAttribute('data-tab');
-            
-            // Mise à jour des onglets
             accountTabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             
-            // Mise à jour des formulaires
             authForms.forEach(form => {
-                form.classList.remove('active');
                 if (form.id === `${targetTab}Form`) {
-                    form.classList.add('active');
+                    form.style.display = 'block';
+                } else {
+                    form.style.display = 'none';
                 }
             });
         });
     });
+
+    // Initialiser l'affichage du formulaire actif
+    const activeTab = document.querySelector('.account-tab.active');
+    if (activeTab) {
+        activeTab.click();
+    }
 
     // Gestion des liens de changement de formulaire
     if (switchToLogin) {
@@ -152,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('[data-tab="login"]').click();
         });
     }
+
     if (switchToRegister) {
         switchToRegister.addEventListener('click', (e) => {
             e.preventDefault();
@@ -417,12 +378,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Vérification initiale du statut admin
     checkAdminStatus();
-    
-    // Ouvrir les rideaux au chargement initial
-    document.addEventListener('DOMContentLoaded', () => {
-        const curtainContainer = document.querySelector('.curtain-container');
-        setTimeout(() => {
-            curtainContainer.classList.add('curtain-open');
-        }, 500);
-    });
 }); 

@@ -16,6 +16,7 @@
             emailjs.init("bSPMC73_nkit6xKfU");
         })();
     </script>
+    <script src="js/main.js"></script>
     <audio id="bgMusic" loop>
         <source src="assets/music/background.mp3" type="audio/mp3">
     </audio>
@@ -25,11 +26,6 @@
     </button>
 </head>
 <body>
-    <div class="curtain-container">
-        <div class="curtain-left"></div>
-        <div class="curtain-right"></div>
-    </div>
-    
     <!-- Éléments de cabaret -->
     <div class="cabaret-glove left-top"></div>
     <div class="cabaret-cigarette left-bottom"></div>
@@ -46,7 +42,7 @@
                 <div id="login-tab" class="account-tab active" data-tab="login">Connexion</div>
             </div>
             <div class="auth-form-container">
-                <form id="register-form" class="auth-form active">
+                <form id="register-form" class="auth-form">
                     <div class="form-group">
                         <label for="register-email">Email</label>
                         <input type="email" id="register-email" name="email" required>
@@ -575,7 +571,5 @@
     <button id="musicToggle" class="music-toggle">
         <i class="fas fa-music"></i>
     </button>
-
-    <script src="js/main.js"></script>
 </body>
 </html> 

@@ -24,21 +24,11 @@ body {
     overflow-x: hidden;
 }
 
-/* Suppression du flou sur le body */
-body::before {
-    content: none;
-}
-
-/* Éléments de cabaret */
+/* Suppression de toutes les transitions et animations */
 .cabaret-element {
     position: fixed;
     z-index: 1;
     opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-
-.cabaret-element:hover {
-    opacity: 1;
 }
 
 .cabaret-glove,
@@ -53,7 +43,6 @@ body::before {
     opacity: 0.6;
     pointer-events: none;
     z-index: 1;
-    transition: all 0.5s ease;
 }
 
 .cabaret-glove {
@@ -133,180 +122,8 @@ body::before {
     text-align: center;
     color: var(--light-color);
     cursor: pointer;
-    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-}
-
-.sidebar-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(218, 165, 32, 0.4),
-        transparent
-    );
-    transition: 0.5s;
-}
-
-.sidebar-item:hover {
-    background: var(--gradient-primary);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px var(--secondary-color);
-}
-
-.sidebar-item:hover::before {
-    left: 100%;
-}
-
-.sidebar-item.active {
-    background: var(--gradient-primary);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px var(--secondary-color);
-}
-
-.sidebar-item i {
-    font-size: 24px;
-    margin-bottom: 5px;
-    color: var(--secondary-color);
-}
-
-.sidebar-item span {
-    display: block;
-    font-size: 12px;
-    margin-top: 5px;
-}
-
-/* Styles de la page d'accueil */
-.landing-page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 20px;
-    text-align: center;
-    color: var(--light-color);
-    position: relative;
-    overflow-y: auto;
-}
-
-.landing-page::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: -1;
-}
-
-.logo-container {
-    margin-top: 10vh;
-    position: relative;
-    z-index: 2;
-}
-
-.main-logo {
-    width: 200px;
-    height: 200px;
-    background: url('../assets/images/logo.png') no-repeat center center;
-    background-size: contain;
-    margin: 0 auto 20px;
-}
-
-.main-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 5.5rem;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    color: var(--secondary-color);
-    font-weight: bold;
-    letter-spacing: 2px;
-}
-
-.subtitle {
-    font-size: 1.8rem;
-    opacity: 0.9;
-    color: var(--accent-color);
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* Styles de la navigation principale */
-.main-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.nav-item {
-    background: var(--primary-color);
-    padding: 15px 30px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--light-color);
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border: 2px solid var(--secondary-color);
-}
-
-.nav-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(218, 165, 32, 0.4),
-        transparent
-    );
-    transition: 0.5s;
-}
-
-.nav-item:hover {
-    transform: translateY(-3px) scale(1.05);
-    background: var(--gradient-primary);
-    box-shadow: 0 0 20px var(--secondary-color);
-}
-
-.nav-item:hover::before {
-    left: 100%;
-}
-
-.nav-item i {
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
-    color: var(--secondary-color);
-}
-
-.nav-item:hover i {
-    transform: scale(1.2);
 }
 
 /* Styles des sections */
@@ -315,21 +132,15 @@ body::before {
     padding: 100px 20px 20px;
     min-height: 100vh;
     background: rgba(128, 0, 0, 0.85);
-    margin-left: 80px;
-    opacity: 0;
-    transform: scale(0.95);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-    border-radius: 20px;
     margin: 80px 20px 20px 100px;
+    opacity: 1;
+    border-radius: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     border: 2px solid var(--secondary-color);
 }
 
 .section.active {
     display: block;
-    opacity: 1;
-    transform: scale(1);
-    animation: fadeInScale 0.5s ease forwards;
 }
 
 .section-title {
@@ -342,23 +153,12 @@ body::before {
 }
 
 /* Styles des formulaires */
-.auth-form-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
 .auth-form {
     display: none;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
 }
 
 .auth-form.active {
     display: block;
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .form-group {
@@ -655,22 +455,6 @@ body::before {
     }
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.fade-in {
-    animation: fadeIn 0.5s ease forwards;
-}
-
 /* Styles pour la section d'ajout d'événements */
 .event-form-container {
     max-width: 800px;
@@ -796,12 +580,10 @@ body::before {
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
     z-index: 1999;
-    opacity: 0;
-    transition: opacity 0.3s ease;
 }
 
 .modal-overlay.active {
-    opacity: 1;
+    display: block;
 }
 
 .account-modal {
@@ -809,22 +591,18 @@ body::before {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
+    transform: translate(-50%, -50%);
     width: 90%;
     max-width: 500px;
     background: var(--light-color);
     border-radius: 15px;
     padding: 30px;
     z-index: 2000;
-    opacity: 0;
-    transition: all 0.3s ease;
     border: 2px solid var(--secondary-color);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .account-modal.active {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    display: block;
 }
 
 .modal-close {
@@ -939,149 +717,4 @@ body::before {
 
 .social-links a:hover {
     color: var(--secondary-color);
-}
-
-/* Animation des éléments cabaret */
-@keyframes float {
-    0% {
-        transform: translateY(0) rotate(0);
-    }
-    50% {
-        transform: translateY(-10px) rotate(5deg);
-    }
-    100% {
-        transform: translateY(0) rotate(0);
-    }
-}
-
-.cabaret-glove,
-.cabaret-cigarette,
-.cabaret-card {
-    animation: float 3s ease-in-out infinite;
-}
-
-/* Animation pour le rideau */
-@keyframes curtainOpen {
-    from {
-        transform: scaleX(1);
-    }
-    to {
-        transform: scaleX(0);
-    }
-}
-
-@keyframes curtainClose {
-    from {
-        transform: scaleX(0);
-    }
-    to {
-        transform: scaleX(1);
-    }
-}
-
-@keyframes fadeInScale {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Styles des rideaux de théâtre */
-.curtain-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 9999;
-}
-
-.curtain-left,
-.curtain-right {
-    position: absolute;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    background: #800020;  /* Rouge bordeaux plus profond et mat */
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);  /* Animation plus rapide */
-    box-shadow: 
-        inset 0 0 50px rgba(0, 0, 0, 0.8),
-        inset 0 0 15px rgba(0, 0, 0, 0.5);
-    background-image: 
-        /* Plis principaux */
-        repeating-linear-gradient(
-            90deg,
-            rgba(0, 0, 0, 0.3) 0px,
-            transparent 2px,
-            rgba(0, 0, 0, 0.1) 4px,
-            transparent 6px,
-            rgba(0, 0, 0, 0.2) 8px,
-            transparent 10px,
-            rgba(0, 0, 0, 0.15) 12px,
-            transparent 14px,
-            rgba(0, 0, 0, 0.25) 16px,
-            transparent 18px
-        ),
-        /* Plis verticaux plus prononcés */
-        repeating-linear-gradient(
-            180deg,
-            rgba(0, 0, 0, 0) 0px,
-            rgba(0, 0, 0, 0.1) 50px,
-            rgba(0, 0, 0, 0.2) 100px,
-            rgba(0, 0, 0, 0.1) 150px,
-            rgba(0, 0, 0, 0) 200px
-        );
-}
-
-.curtain-left {
-    left: 0;
-    transform-origin: left;
-    border-right: 8px solid #4a0000;  /* Bordure plus foncée */
-}
-
-.curtain-right {
-    right: 0;
-    transform-origin: right;
-    border-left: 8px solid #4a0000;  /* Bordure plus foncée */
-}
-
-.curtain-container.curtain-open .curtain-left {
-    transform: translateX(-100%);
-}
-
-.curtain-container.curtain-open .curtain-right {
-    transform: translateX(100%);
-}
-
-/* Effet de plis supplémentaire */
-.curtain-left::before,
-.curtain-right::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 0) 0px,
-        rgba(0, 0, 0, 0.1) 1px,
-        rgba(0, 0, 0, 0) 2px,
-        rgba(0, 0, 0, 0.05) 3px,
-        rgba(0, 0, 0, 0) 4px
-    );
-    pointer-events: none;
-}
-
-@keyframes curtainShine {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
 } 
