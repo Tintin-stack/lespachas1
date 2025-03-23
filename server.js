@@ -26,7 +26,21 @@ if (!supabaseUrl || !supabaseKey) {
     process.exit(1);
 }
 
+console.log('Initialisation de la connexion Supabase...');
 const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Test de la connexion Supabase au démarrage
+supabase.from('users').select('count').limit(1)
+    .then(({ data, error }) => {
+        if (error) {
+            console.error('Erreur de connexion à Supabase:', error);
+        } else {
+            console.log('Connexion à Supabase établie avec succès');
+        }
+    })
+    .catch(error => {
+        console.error('Erreur lors de la vérification de la connexion:', error);
+    });
 
 // Routes d'authentification
 app.post('/api/register', async (req, res) => {
@@ -44,7 +58,13 @@ app.post('/api/register', async (req, res) => {
 
         if (searchError) {
             console.error('Erreur lors de la recherche de l\'utilisateur:', searchError);
-            return res.status(500).json({ error: 'Erreur lors de la vérification de l\'email' });
+            if (searchError.code === 'PGRST116') {
+                // L'utilisateur n'existe pas, on peut continuer
+                console.log('L\'utilisateur n\'existe pas, création en cours...');
+            } else {
+                console.error('Erreur Supabase:', searchError);
+                return res.status(500).json({ error: 'Erreur lors de la vérification de l\'email' });
+            }
         }
 
         if (existingUser) {
@@ -66,19 +86,18 @@ app.post('/api/register', async (req, res) => {
                     is_admin: email.includes('admin')
                 }
             ])
-            .select()
-            .single();
+            .select();
 
         if (insertError) {
             console.error('Erreur lors de l\'insertion de l\'utilisateur:', insertError);
-            throw insertError;
+            return res.status(500).json({ error: 'Erreur lors de l\'inscription: ' + insertError.message });
         }
         
         console.log('Utilisateur créé avec succès:', email);
         res.status(201).json({ message: 'Utilisateur créé avec succès' });
     } catch (error) {
         console.error('Erreur détaillée lors de l\'inscription:', error);
-        res.status(500).json({ error: 'Erreur lors de l\'inscription' });
+        res.status(500).json({ error: 'Erreur lors de l\'inscription: ' + error.message });
     }
 });
 
