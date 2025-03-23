@@ -45,20 +45,27 @@ document.addEventListener('DOMContentLoaded', function() {
     function showSection(sectionId) {
         landingPage.style.display = 'none';
         sections.forEach(section => {
-            section.style.display = 'none';
+            if (section.id === sectionId) {
+                section.style.display = 'block';
+                // Petit délai pour permettre l'animation
+                setTimeout(() => {
+                    section.classList.add('active');
+                }, 50);
+            } else {
+                section.classList.remove('active');
+                section.style.display = 'none';
+            }
         });
-
-        const targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-            targetSection.style.display = 'block';
-        }
         hideAccountModal();
     }
 
     // Fonction pour revenir à la page d'accueil
     function showLandingPage() {
         sections.forEach(section => {
-            section.style.display = 'none';
+            section.classList.remove('active');
+            setTimeout(() => {
+                section.style.display = 'none';
+            }, 500);
         });
         landingPage.style.display = 'flex';
     }
