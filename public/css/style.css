@@ -317,8 +317,8 @@ body::before {
     background: rgba(128, 0, 0, 0.85);
     margin-left: 80px;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: scale(0.95);
+    transition: opacity 0.8s ease, transform 0.8s ease;
     border-radius: 20px;
     margin: 80px 20px 20px 100px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
@@ -328,7 +328,8 @@ body::before {
 .section.active {
     display: block;
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
+    animation: fadeInScale 0.5s ease forwards;
 }
 
 .section-title {
@@ -959,24 +960,128 @@ body::before {
     animation: float 3s ease-in-out infinite;
 }
 
-/* Mise à jour des transitions pour les sections */
-.section {
-    display: none;
-    padding: 100px 20px 20px;
-    min-height: 100vh;
-    background: rgba(128, 0, 0, 0.85);
-    margin-left: 80px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    border-radius: 20px;
-    margin: 80px 20px 20px 100px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    border: 2px solid var(--secondary-color);
+/* Animation pour le rideau */
+@keyframes curtainOpen {
+    from {
+        transform: scaleX(1);
+    }
+    to {
+        transform: scaleX(0);
+    }
 }
 
-.section.active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
+@keyframes curtainClose {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Styles des rideaux de théâtre */
+.curtain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.curtain-left,
+.curtain-right {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: #800020;  /* Rouge bordeaux plus profond et mat */
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);  /* Animation plus rapide */
+    box-shadow: 
+        inset 0 0 50px rgba(0, 0, 0, 0.8),
+        inset 0 0 15px rgba(0, 0, 0, 0.5);
+    background-image: 
+        /* Plis principaux */
+        repeating-linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.3) 0px,
+            transparent 2px,
+            rgba(0, 0, 0, 0.1) 4px,
+            transparent 6px,
+            rgba(0, 0, 0, 0.2) 8px,
+            transparent 10px,
+            rgba(0, 0, 0, 0.15) 12px,
+            transparent 14px,
+            rgba(0, 0, 0, 0.25) 16px,
+            transparent 18px
+        ),
+        /* Plis verticaux plus prononcés */
+        repeating-linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0) 0px,
+            rgba(0, 0, 0, 0.1) 50px,
+            rgba(0, 0, 0, 0.2) 100px,
+            rgba(0, 0, 0, 0.1) 150px,
+            rgba(0, 0, 0, 0) 200px
+        );
+}
+
+.curtain-left {
+    left: 0;
+    transform-origin: left;
+    border-right: 8px solid #4a0000;  /* Bordure plus foncée */
+}
+
+.curtain-right {
+    right: 0;
+    transform-origin: right;
+    border-left: 8px solid #4a0000;  /* Bordure plus foncée */
+}
+
+.curtain-container.curtain-open .curtain-left {
+    transform: translateX(-100%);
+}
+
+.curtain-container.curtain-open .curtain-right {
+    transform: translateX(100%);
+}
+
+/* Effet de plis supplémentaire */
+.curtain-left::before,
+.curtain-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        rgba(0, 0, 0, 0) 2px,
+        rgba(0, 0, 0, 0.05) 3px,
+        rgba(0, 0, 0, 0) 4px
+    );
+    pointer-events: none;
+}
+
+@keyframes curtainShine {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
 } 

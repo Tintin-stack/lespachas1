@@ -25,6 +25,11 @@
     </button>
 </head>
 <body>
+    <div class="curtain-container">
+        <div class="curtain-left"></div>
+        <div class="curtain-right"></div>
+    </div>
+    
     <!-- Éléments de cabaret -->
     <div class="cabaret-glove left-top"></div>
     <div class="cabaret-cigarette left-bottom"></div>
@@ -37,38 +42,34 @@
         <div class="modal-content">
             <span class="modal-close">&times;</span>
             <div class="account-tabs">
-                <div class="account-tab" data-tab="register">Inscription</div>
-                <div class="account-tab active" data-tab="login">Connexion</div>
+                <div id="register-tab" class="account-tab" data-tab="register">Inscription</div>
+                <div id="login-tab" class="account-tab active" data-tab="login">Connexion</div>
             </div>
             <div class="auth-form-container">
-                <form id="registerForm" class="auth-form active">
+                <form id="register-form" class="auth-form active">
                     <div class="form-group">
-                        <label for="registerNom">Nom</label>
-                        <input type="text" id="registerNom" name="nom" required>
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="registerPrenom">Prénom</label>
-                        <input type="text" id="registerPrenom" name="prenom" required>
+                        <label for="register-password">Mot de passe</label>
+                        <input type="password" id="register-password" name="password" required>
                     </div>
                     <div class="form-group">
-                        <label for="registerEmail">Email</label>
-                        <input type="email" id="registerEmail" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="registerPassword">Mot de passe</label>
-                        <input type="password" id="registerPassword" name="password" required>
+                        <label for="register-confirm-password">Confirmer le mot de passe</label>
+                        <input type="password" id="register-confirm-password" name="confirm-password" required>
                     </div>
                     <button type="submit" class="submit-btn">S'inscrire</button>
                     <p class="switch-form">Vous avez déjà un compte ? <a href="#" class="switch-to-login">Cliquez ici</a></p>
                 </form>
-                <form id="loginForm" class="auth-form">
+                <form id="login-form" class="auth-form">
                     <div class="form-group">
-                        <label for="loginEmail">Email</label>
-                        <input type="email" id="loginEmail" name="email" required>
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="loginPassword">Mot de passe</label>
-                        <input type="password" id="loginPassword" name="password" required>
+                        <label for="login-password">Mot de passe</label>
+                        <input type="password" id="login-password" name="password" required>
                     </div>
                     <button type="submit" class="submit-btn">Se connecter</button>
                     <p class="switch-form">Pas encore de compte ? <a href="#" class="switch-to-register">Cliquez ici</a></p>
@@ -158,29 +159,22 @@
             <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
             <h2 class="section-title">Le Bureau</h2>
             <div class="pole-presentation">
-                <div class="responsable">
-                    <div class="member-card">
-                        <div class="member-photo">
-                            <i class="fas fa-crown"></i>
-                        </div>
-                        <h3 class="member-name">Président</h3>
-                        <p class="member-role">Nom Prénom</p>
-                    </div>
-                </div>
                 <div class="members-grid">
+                    <!-- Co-Président 1 -->
                     <div class="member-card">
                         <div class="member-photo">
                             <i class="fas fa-user"></i>
                         </div>
-                        <h3 class="member-name">Co-Président 1</h3>
-                        <p class="member-role">Nom Prénom</p>
+                        <h3 class="member-name">Co-Président</h3>
+                        <p class="member-role">Direction & Stratégie</p>
                     </div>
+                    <!-- Co-Président 2 -->
                     <div class="member-card">
                         <div class="member-photo">
                             <i class="fas fa-user"></i>
                         </div>
-                        <h3 class="member-name">Co-Président 2</h3>
-                        <p class="member-role">Nom Prénom</p>
+                        <h3 class="member-name">Co-Président</h3>
+                        <p class="member-role">Direction & Stratégie</p>
                     </div>
                     <div class="member-card">
                         <div class="member-photo">

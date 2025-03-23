@@ -52,35 +52,59 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fonction pour afficher une section
     function showSection(sectionId) {
-        // Cacher la landing page
-        landingPage.style.display = 'none';
+        const curtainContainer = document.querySelector('.curtain-container');
+        
+        // Fermer les rideaux
+        curtainContainer.classList.remove('curtain-open');
+        
+        setTimeout(() => {
+            // Cacher la landing page
+            landingPage.style.display = 'none';
 
-        // Cacher toutes les sections
-        sections.forEach(section => {
-            section.style.display = 'none';
-            section.classList.remove('active');
-        });
+            // Cacher toutes les sections
+            sections.forEach(section => {
+                section.style.display = 'none';
+                section.classList.remove('active');
+            });
 
-        // Afficher la section demandée
-        const targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-            targetSection.style.display = 'block';
+            // Afficher la section demandée
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+                setTimeout(() => {
+                    targetSection.classList.add('active');
+                }, 10);
+            }
+
+            // Cacher le modal de compte
+            hideAccountModal();
+
+            // Ouvrir les rideaux après le changement de section
             setTimeout(() => {
-                targetSection.classList.add('active');
-            }, 10);
-        }
-
-        // Cacher le modal de compte
-        hideAccountModal();
+                curtainContainer.classList.add('curtain-open');
+            }, 500);
+        }, 1000);
     }
 
     // Fonction pour revenir à la page d'accueil
     function showLandingPage() {
-        sections.forEach(section => {
-            section.style.display = 'none';
-            section.classList.remove('active');
-        });
-        landingPage.style.display = 'flex';
+        const curtainContainer = document.querySelector('.curtain-container');
+        
+        // Fermer les rideaux
+        curtainContainer.classList.remove('curtain-open');
+        
+        setTimeout(() => {
+            sections.forEach(section => {
+                section.style.display = 'none';
+                section.classList.remove('active');
+            });
+            landingPage.style.display = 'flex';
+
+            // Ouvrir les rideaux après le retour à l'accueil
+            setTimeout(() => {
+                curtainContainer.classList.add('curtain-open');
+            }, 500);
+        }, 1000);
     }
 
     // Gestion des clics sur les éléments de navigation
@@ -155,115 +179,218 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Gestion des formulaires
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
+    // Gestion des formulaires de connexion et d'inscription
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const loginTab = document.getElementById('login-tab');
+    const registerTab = document.getElementById('register-tab');
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            const password = this.querySelector('input[type="password"]').value;
+    // Liste des emails admin autorisés
+    const ADMIN_EMAILS = ['admin@lespachas.fr', 'lespachas.admin@gmail.com'];
 
-            try {
-                const response = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password })
-                });
+    // Gestion des onglets
+    loginTab.addEventListener('click', () => {
+        loginTab.classList.add('active');
+        registerTab.classList.remove('active');
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+    });
 
-                const data = await response.json();
-                if (response.ok) {
-                    localStorage.setItem('token', data.token);
-                    window.location.reload();
-                } else {
-                    alert(data.message || 'Erreur de connexion');
-                }
-            } catch (error) {
-                console.error('Erreur:', error);
-                alert('Erreur de connexion');
+    registerTab.addEventListener('click', () => {
+        registerTab.classList.add('active');
+        loginTab.classList.remove('active');
+        registerForm.style.display = 'block';
+        loginForm.style.display = 'none';
+    });
+
+    // Gestion de la connexion
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                localStorage.setItem('isAdmin', data.isAdmin);
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('token', data.token);
+                hideAccountModal();
+                checkAdminStatus();
+                alert('Connexion réussie !');
+            } else {
+                alert(data.error || 'Email ou mot de passe incorrect');
             }
-        });
+        } catch (error) {
+            console.error('Erreur de connexion:', error);
+            alert('Erreur de connexion. Veuillez réessayer.');
+        }
+    });
+
+    // Gestion de l'inscription
+    registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('register-email').value;
+        const password = document.getElementById('register-password').value;
+        const confirmPassword = document.getElementById('register-confirm-password').value;
+
+        if (password !== confirmPassword) {
+            alert('Les mots de passe ne correspondent pas.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
+                document.querySelector('[data-tab="login"]').click();
+            } else {
+                alert(data.error || 'Erreur lors de l\'inscription');
+            }
+        } catch (error) {
+            console.error('Erreur d\'inscription:', error);
+            alert('Erreur lors de l\'inscription. Veuillez réessayer.');
+        }
+    });
+
+    // Fonction pour vérifier le statut admin
+    function checkAdminStatus() {
+        const isAdmin = localStorage.getItem('isAdmin') === 'true';
+        if (isAdmin) {
+            // Créer et afficher la bannière admin
+            const adminBanner = document.createElement('div');
+            adminBanner.className = 'admin-banner';
+            adminBanner.innerHTML = `
+                <i class="fas fa-crown"></i>
+                Vous êtes administrateur - Vous pouvez gérer les événements
+            `;
+            document.body.appendChild(adminBanner);
+            setTimeout(() => adminBanner.classList.add('visible'), 100);
+
+            // Afficher la section admin
+            const adminSection = document.querySelector('.admin-section');
+            if (adminSection) {
+                adminSection.style.display = 'block';
+            }
+
+            // Ajouter le lien vers la section admin dans la navigation
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks && !document.querySelector('[data-section="add-event"]')) {
+                const adminLink = document.createElement('div');
+                adminLink.className = 'sidebar-item';
+                adminLink.dataset.section = 'add-event';
+                adminLink.innerHTML = '<i class="fas fa-plus-circle"></i><span>Ajouter un événement</span>';
+                navLinks.appendChild(adminLink);
+                
+                // Ajouter l'écouteur d'événements pour la navigation
+                adminLink.addEventListener('click', function() {
+                    showSection('add-event');
+                });
+            }
+        }
     }
 
-    if (registerForm) {
-        registerForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            const password = this.querySelector('input[type="password"]').value;
-            const nom = this.querySelector('#registerNom').value;
-            const prenom = this.querySelector('#registerPrenom').value;
+    // Configuration EmailJS
+    const EMAIL_CONFIG = {
+        serviceID: 'service_d5avvat',
+        templateID: 'template_p2vdpno',
+        userID: 'bSPMC73_nkit6xKfU'
+    };
 
-            try {
-                const response = await fetch('/api/auth/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password, nom, prenom })
-                });
-
-                const data = await response.json();
-                if (response.ok) {
-                    alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
-                    document.querySelector('[data-tab="login"]').click();
-                } else {
-                    alert(data.message || 'Erreur d\'inscription');
+    // Fonction pour envoyer des notifications
+    async function sendNotification(type, data) {
+        const templates = {
+            'event': {
+                template: EMAIL_CONFIG.templateID,
+                params: {
+                    event_title: data.title,
+                    event_date: new Date(data.date).toLocaleDateString('fr-FR'),
+                    event_time: new Date(data.date).toLocaleTimeString('fr-FR'),
+                    event_location: data.location,
+                    event_description: data.description
                 }
-            } catch (error) {
-                console.error('Erreur:', error);
-                alert('Erreur d\'inscription');
             }
-        });
+        };
+
+        const template = templates[type];
+        if (!template) return;
+
+        try {
+            const response = await emailjs.send(
+                EMAIL_CONFIG.serviceID,
+                template.template,
+                template.params,
+                EMAIL_CONFIG.userID
+            );
+            console.log('Notification envoyée avec succès:', response);
+            return true;
+        } catch (error) {
+            console.error('Erreur lors de l\'envoi de la notification:', error);
+            return false;
+        }
     }
 
     // Gestion du formulaire d'ajout d'événement
     const eventForm = document.getElementById('eventForm');
-    const adminSection = document.querySelector('.admin-section');
+    if (eventForm) {
+        eventForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const eventData = {
+                title: document.getElementById('eventTitle').value,
+                date: document.getElementById('eventDate').value,
+                location: document.getElementById('eventLocation').value,
+                description: document.getElementById('eventDescription').value
+            };
 
-    // Vérifier si l'utilisateur est admin
-    function checkAdminStatus() {
-        const token = localStorage.getItem('token');
-        if (token) {
-            fetch('/api/auth/check-admin', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.isAdmin) {
-                    // Créer et afficher la bannière admin
-                    const adminBanner = document.createElement('div');
-                    adminBanner.className = 'admin-banner';
-                    adminBanner.innerHTML = `
-                        <i class="fas fa-crown"></i>
-                        Vous êtes administrateur - Vous pouvez gérer les événements et les utilisateurs
-                    `;
-                    document.body.appendChild(adminBanner);
-                    setTimeout(() => adminBanner.classList.add('visible'), 100);
+            try {
+                // Envoyer l'événement au serveur
+                const response = await fetch('/api/events', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(eventData)
+                });
 
-                    // Afficher la section admin
-                    if (adminSection) {
-                        adminSection.style.display = 'block';
+                if (response.ok) {
+                    // Envoyer la notification
+                    const notificationSent = await sendNotification('event', eventData);
+                    
+                    if (notificationSent) {
+                        alert('Événement créé et notifications envoyées avec succès !');
+                    } else {
+                        alert('Événement créé mais erreur lors de l\'envoi des notifications.');
                     }
-
-                    // Ajouter le lien vers la section admin dans la navigation
-                    const adminLink = document.createElement('div');
-                    adminLink.className = 'nav-item';
-                    adminLink.dataset.section = 'add-event';
-                    adminLink.innerHTML = '<i class="fas fa-plus-circle"></i> Ajouter un événement';
-                    document.querySelector('.nav-links').appendChild(adminLink);
+                    
+                    loadEvents(); // Recharger la liste des événements
+                    this.reset(); // Réinitialiser le formulaire
+                } else {
+                    alert('Erreur lors de la création de l\'événement');
                 }
-            })
-            .catch(error => console.error('Erreur:', error));
-        }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Erreur lors de la création de l\'événement');
+            }
+        });
     }
-
-    // Appeler la vérification au chargement
-    checkAdminStatus();
 
     // Chargement des événements
     function loadEvents() {
@@ -287,4 +414,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Charger les événements au chargement de la page
     loadEvents();
+
+    // Vérification initiale du statut admin
+    checkAdminStatus();
+    
+    // Ouvrir les rideaux au chargement initial
+    document.addEventListener('DOMContentLoaded', () => {
+        const curtainContainer = document.querySelector('.curtain-container');
+        setTimeout(() => {
+            curtainContainer.classList.add('curtain-open');
+        }, 500);
+    });
 }); 
