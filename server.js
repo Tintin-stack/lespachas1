@@ -32,21 +32,31 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 app.post('/api/register', async (req, res) => {
     try {
         const { email, password } = req.body;
+        console.log('Tentative d\'inscription pour:', email);
         
         // Vérifier si l'utilisateur existe déjà
+        console.log('Vérification de l\'existence de l\'utilisateur...');
         const { data: existingUser, error: searchError } = await supabase
             .from('users')
             .select('email')
             .eq('email', email)
             .single();
 
+        if (searchError) {
+            console.error('Erreur lors de la recherche de l\'utilisateur:', searchError);
+            return res.status(500).json({ error: 'Erreur lors de la vérification de l\'email' });
+        }
+
         if (existingUser) {
+            console.log('Email déjà utilisé:', email);
             return res.status(400).json({ error: 'Cet email est déjà utilisé' });
         }
 
+        console.log('Hachage du mot de passe...');
         const hashedPassword = await bcrypt.hash(password, 10);
         
         // Créer l'utilisateur
+        console.log('Création de l\'utilisateur...');
         const { data: newUser, error: insertError } = await supabase
             .from('users')
             .insert([
@@ -59,11 +69,15 @@ app.post('/api/register', async (req, res) => {
             .select()
             .single();
 
-        if (insertError) throw insertError;
+        if (insertError) {
+            console.error('Erreur lors de l\'insertion de l\'utilisateur:', insertError);
+            throw insertError;
+        }
         
+        console.log('Utilisateur créé avec succès:', email);
         res.status(201).json({ message: 'Utilisateur créé avec succès' });
     } catch (error) {
-        console.error('Erreur lors de l\'inscription:', error);
+        console.error('Erreur détaillée lors de l\'inscription:', error);
         res.status(500).json({ error: 'Erreur lors de l\'inscription' });
     }
 });
