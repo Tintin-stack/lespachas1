@@ -121,13 +121,39 @@ body {
     width: 100%;
     padding: 15px;
     text-align: center;
-    color: var(--light-color);
+    color: var(--secondary-color);
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.sidebar-item:hover {
+    background: rgba(218, 165, 32, 0.1);
+    color: var(--accent-color);
+}
+
+.sidebar-item i {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.sidebar-item span {
+    display: block;
+    font-size: 0.8rem;
 }
 
 /* Styles des sections */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 .section {
     display: none;
     padding: 100px 20px 20px;
@@ -148,13 +174,77 @@ body {
     transform: scale(1);
 }
 
-.section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    color: var(--secondary-color);
-    margin-bottom: 30px;
+/* Landing Page */
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
     text-align: center;
-    font-weight: bold;
+}
+
+.logo-container {
+    margin-bottom: 50px;
+}
+
+.main-logo {
+    width: 200px;
+    height: 200px;
+    background: url('../assets/images/logo.png') no-repeat center center;
+    background-size: contain;
+    margin: 0 auto 20px;
+}
+
+.main-title {
+    font-size: 3.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    margin-bottom: 40px;
+}
+
+.main-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    padding: 20px;
+}
+
+.nav-item {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid var(--secondary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--secondary-color);
+}
+
+.nav-item:hover {
+    transform: translateY(-5px);
+    background: rgba(128, 0, 0, 0.8);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);
+}
+
+.nav-item i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.nav-item span {
+    display: block;
+    font-size: 1.1rem;
 }
 
 /* Styles des formulaires */
@@ -258,11 +348,13 @@ body {
     transition: all 0.3s ease;
     border: 2px solid var(--secondary-color);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
 }
 
 .member-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent-color);
 }
 
 .member-photo {
@@ -285,6 +377,7 @@ body {
 
 .member-card:hover .member-photo {
     transform: scale(1.1);
+    border-color: var(--accent-color);
 }
 
 .member-name {
@@ -334,11 +427,13 @@ body {
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     border: 1px solid var(--secondary-color);
+    transform: translateY(0);
 }
 
 .event-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-color: var(--accent-color);
 }
 
 .event-date {
