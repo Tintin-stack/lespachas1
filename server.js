@@ -21,6 +21,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 
+console.log('Vérification des variables d\'environnement...');
+console.log('SUPABASE_URL est défini:', !!supabaseUrl);
+console.log('SUPABASE_KEY est défini:', !!supabaseKey);
+
 if (!supabaseUrl || !supabaseKey) {
     console.error('Les variables d\'environnement Supabase ne sont pas définies');
     process.exit(1);
@@ -34,12 +38,15 @@ supabase.from('users').select('count').limit(1)
     .then(({ data, error }) => {
         if (error) {
             console.error('Erreur de connexion à Supabase:', error);
+            console.error('Message d\'erreur complet:', JSON.stringify(error, null, 2));
         } else {
             console.log('Connexion à Supabase établie avec succès');
+            console.log('Données reçues:', data);
         }
     })
     .catch(error => {
         console.error('Erreur lors de la vérification de la connexion:', error);
+        console.error('Stack trace:', error.stack);
     });
 
 // Routes d'authentification
@@ -47,6 +54,11 @@ app.post('/api/register', async (req, res) => {
     try {
         const { email, password } = req.body;
         console.log('Tentative d\'inscription pour:', email);
+        
+        if (!email || !password) {
+            console.error('Email ou mot de passe manquant');
+            return res.status(400).json({ error: 'Email et mot de passe requis' });
+        }
         
         // Vérifier si l'utilisateur existe déjà
         console.log('Vérification de l\'existence de l\'utilisateur...');
@@ -58,12 +70,11 @@ app.post('/api/register', async (req, res) => {
 
         if (searchError) {
             console.error('Erreur lors de la recherche de l\'utilisateur:', searchError);
+            console.error('Message d\'erreur complet:', JSON.stringify(searchError, null, 2));
             if (searchError.code === 'PGRST116') {
-                // L'utilisateur n'existe pas, on peut continuer
                 console.log('L\'utilisateur n\'existe pas, création en cours...');
             } else {
-                console.error('Erreur Supabase:', searchError);
-                return res.status(500).json({ error: 'Erreur lors de la vérification de l\'email' });
+                return res.status(500).json({ error: 'Erreur lors de la vérification de l\'email: ' + searchError.message });
             }
         }
 
@@ -90,6 +101,7 @@ app.post('/api/register', async (req, res) => {
 
         if (insertError) {
             console.error('Erreur lors de l\'insertion de l\'utilisateur:', insertError);
+            console.error('Message d\'erreur complet:', JSON.stringify(insertError, null, 2));
             return res.status(500).json({ error: 'Erreur lors de l\'inscription: ' + insertError.message });
         }
         
@@ -97,6 +109,7 @@ app.post('/api/register', async (req, res) => {
         res.status(201).json({ message: 'Utilisateur créé avec succès' });
     } catch (error) {
         console.error('Erreur détaillée lors de l\'inscription:', error);
+        console.error('Stack trace:', error.stack);
         res.status(500).json({ error: 'Erreur lors de l\'inscription: ' + error.message });
     }
 });
