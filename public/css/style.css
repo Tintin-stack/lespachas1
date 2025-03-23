@@ -102,13 +102,17 @@ body {
     width: 60px;
     height: 60px;
     margin-bottom: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: transparent;
 }
 
 .nav-logo-img {
     width: 100%;
     height: 100%;
     background: url('/assets/images/logo.png') no-repeat center center;
-    background-size: contain;
+    background-size: cover;
+    border-radius: 50%;
 }
 
 .nav-links {
@@ -192,14 +196,18 @@ body {
     width: 300px;
     height: 300px;
     margin-top: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: transparent;
 }
 
 .main-logo {
     width: 100%;
     height: 100%;
     background: url('/assets/images/logo.png') no-repeat center center;
-    background-size: contain;
+    background-size: cover;
     margin: 0 auto;
+    border-radius: 50%;
 }
 
 .main-title {
@@ -223,15 +231,14 @@ body {
     top: -50px;
 }
 
-.nav-logo-img {
-    width: 100%;
-    height: 100%;
-    background: url('/assets/images/logo.png') no-repeat center center;
-    background-size: contain;
-}
-
 .main-nav {
     margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
 }
 
 .nav-item {
@@ -247,6 +254,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 200px;
+    width: 100%;
 }
 
 .nav-item:hover {
@@ -419,10 +427,11 @@ body {
     width: 50px;
     height: 50px;
     background: url('/assets/images/logo.png') no-repeat center center;
-    background-size: contain;
+    background-size: cover;
     opacity: 0.8;
     transition: all 0.3s ease;
     z-index: 2;
+    border-radius: 50%;
 }
 
 .member-card:hover .member-pacha-logo {
@@ -540,6 +549,12 @@ body {
 }
 
 /* Media Queries */
+@media (max-width: 1024px) {
+    .main-nav {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .sidebar {
         width: 60px;
@@ -569,6 +584,10 @@ body {
     .member-pacha-logo {
         width: 40px;
         height: 40px;
+    }
+
+    .main-nav {
+        grid-template-columns: 1fr;
     }
 }
 
