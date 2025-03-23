@@ -183,68 +183,88 @@ body {
     min-height: 100vh;
     padding: 20px;
     text-align: center;
+    margin-left: 80px; /* Pour la sidebar */
 }
 
 .logo-container {
     margin-bottom: 50px;
+    position: relative;
+    width: 300px;
+    height: 300px;
 }
 
 .main-logo {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
     background: url('../assets/images/logo.png') no-repeat center center;
     background-size: contain;
     margin: 0 auto 20px;
+    transition: transform 0.3s ease;
+}
+
+.main-logo:hover {
+    transform: scale(1.05);
 }
 
 .main-title {
-    font-size: 3.5rem;
+    font-size: 4rem;
     color: var(--secondary-color);
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 2px;
 }
 
 .subtitle {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: var(--accent-color);
-    margin-bottom: 40px;
+    margin-bottom: 60px;
+    font-family: 'Lora', serif;
+    letter-spacing: 1px;
 }
 
 .main-nav {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
     max-width: 1200px;
-    width: 100%;
+    width: 90%;
     padding: 20px;
+    margin: 0 auto;
 }
 
 .nav-item {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 30px;
     border-radius: 15px;
     border: 2px solid var(--secondary-color);
     cursor: pointer;
     transition: all 0.3s ease;
     color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
 }
 
 .nav-item:hover {
     transform: translateY(-5px);
-    background: rgba(128, 0, 0, 0.8);
+    background: rgba(128, 0, 0, 0.9);
     border-color: var(--accent-color);
     color: var(--accent-color);
-    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);
+    box-shadow: 0 5px 20px rgba(218, 165, 32, 0.4);
 }
 
 .nav-item i {
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
 }
 
 .nav-item span {
     display: block;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
+    font-family: 'Lora', serif;
 }
 
 /* Styles des formulaires */
@@ -332,70 +352,91 @@ body {
     color: var(--light-color);
 }
 
-.members-grid {
+.member-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     padding: 20px;
     margin-top: 20px;
 }
 
 .member-card {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.8);
     border-radius: 15px;
-    padding: 20px;
-    text-align: center;
-    transition: all 0.3s ease;
     border: 2px solid var(--secondary-color);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    transform: translateY(0);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .member-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     border-color: var(--accent-color);
+    box-shadow: 0 5px 20px rgba(218, 165, 32, 0.4);
 }
 
 .member-photo {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin: 0 auto 15px;
-    background: var(--gradient-secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid var(--secondary-color);
-    transition: all 0.3s ease;
-}
-
-.member-photo i {
-    font-size: 40px;
-    color: var(--light-color);
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--secondary-color);
+    transition: transform 0.3s ease;
 }
 
 .member-card:hover .member-photo {
-    transform: scale(1.1);
-    border-color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.member-info {
+    padding: 20px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .member-name {
-    color: var(--primary-color);
-    font-size: 1.2em;
-    margin-bottom: 5px;
-    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    font-family: 'Playfair Display', serif;
 }
 
 .member-role {
-    color: var(--dark-color);
-    font-size: 0.9em;
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    font-family: 'Lora', serif;
+    margin-bottom: 10px;
 }
 
 .member-description {
-    color: var(--dark-color);
-    font-size: 0.9rem;
+    font-size: 1rem;
+    color: var(--light-color);
     line-height: 1.5;
+    opacity: 0.9;
+}
+
+/* Style pour le logo Pacha sur les cartes */
+.member-pacha-logo {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    background: url('../assets/images/logo.png') no-repeat center center;
+    background-size: contain;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.member-card:hover .member-pacha-logo {
+    transform: rotate(360deg);
+    opacity: 1;
 }
 
 /* Styles des événements */
@@ -525,12 +566,18 @@ body {
         left: 70px;
     }
 
-    .members-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    .member-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
     }
 
-    .history-grid {
-        grid-template-columns: 1fr;
+    .member-photo {
+        height: 300px;
+    }
+
+    .member-pacha-logo {
+        width: 40px;
+        height: 40px;
     }
 }
 
@@ -540,13 +587,12 @@ body {
         padding: 80px 10px 10px;
     }
 
-    .member-card {
-        padding: 15px;
+    .member-grid {
+        grid-template-columns: 1fr;
     }
 
     .member-photo {
-        width: 100px;
-        height: 100px;
+        height: 250px;
     }
 
     .modal-content {
@@ -829,5 +875,137 @@ body {
     }
     100% {
         transform: translateY(0px) rotate(0deg);
+    }
+}
+
+/* Style spécial pour les membres événementiel */
+.membre-event {
+    background: linear-gradient(135deg, rgba(128, 0, 0, 0.9), rgba(0, 0, 0, 0.8));
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.membre-event .member-info {
+    padding: 20px;
+}
+
+.membre-event .member-name {
+    font-family: 'Courier New', monospace;
+    font-size: 1.3rem;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+.membre-event .member-role {
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+.membre-event:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 5px 20px rgba(218, 165, 32, 0.6);
+}
+
+.membre-event .member-pacha-logo {
+    opacity: 0.4;
+}
+
+.membre-event:hover .member-pacha-logo {
+    opacity: 1;
+    transform: rotate(360deg) scale(1.2);
+}
+
+/* Styles pour les cartes de pôle */
+.pole-card {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    border: 2px solid var(--secondary-color);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    max-width: 800px;
+    margin: 40px auto;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.pole-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+    box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
+}
+
+.pole-photo {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--secondary-color);
+    transition: transform 0.3s ease;
+}
+
+.pole-card:hover .pole-photo {
+    transform: scale(1.05);
+}
+
+.pole-info {
+    padding: 30px;
+    text-align: center;
+}
+
+.pole-name {
+    font-size: 2rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    font-family: 'Playfair Display', serif;
+}
+
+.pole-description {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    font-family: 'Lora', serif;
+}
+
+.pole-members {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(218, 165, 32, 0.3);
+}
+
+.member-list {
+    color: var(--light-color);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+/* Media Queries pour les cartes de pôle */
+@media (max-width: 768px) {
+    .pole-card {
+        margin: 20px;
+    }
+
+    .pole-photo {
+        height: 300px;
+    }
+
+    .pole-name {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .pole-photo {
+        height: 250px;
+    }
+
+    .pole-name {
+        font-size: 1.5rem;
+    }
+
+    .pole-description {
+        font-size: 1.1rem;
     }
 } 
