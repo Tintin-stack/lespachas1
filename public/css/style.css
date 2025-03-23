@@ -113,6 +113,7 @@ body {
     background: url('/assets/images/logo.png') no-repeat center center;
     background-size: cover;
     border-radius: 50%;
+    background-color: transparent;
 }
 
 .nav-links {
@@ -208,6 +209,7 @@ body {
     background-size: cover;
     margin: 0 auto;
     border-radius: 50%;
+    background-color: transparent;
 }
 
 .main-title {
@@ -219,6 +221,7 @@ body {
     letter-spacing: 2px;
     position: relative;
     top: -50px;
+    z-index: 2;
 }
 
 .subtitle {
@@ -229,6 +232,7 @@ body {
     letter-spacing: 1px;
     position: relative;
     top: -50px;
+    z-index: 2;
 }
 
 .main-nav {

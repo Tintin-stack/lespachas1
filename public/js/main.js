@@ -156,20 +156,51 @@ document.addEventListener('DOMContentLoaded', function() {
     // Liste des emails admin autorisés
     const ADMIN_EMAILS = ['admin@lespachas.fr', 'lespachas.admin@gmail.com'];
 
-    // Gestion des onglets
-    loginTab.addEventListener('click', () => {
-        loginTab.classList.add('active');
-        registerTab.classList.remove('active');
-        loginForm.style.display = 'block';
-        registerForm.style.display = 'none';
-    });
+    // Fonction pour vérifier si un email est admin
+    function isAdminEmail(email) {
+        return ADMIN_EMAILS.includes(email);
+    }
 
-    registerTab.addEventListener('click', () => {
-        registerTab.classList.add('active');
-        loginTab.classList.remove('active');
-        registerForm.style.display = 'block';
-        loginForm.style.display = 'none';
-    });
+    // Fonction pour vérifier le statut admin
+    function checkAdminStatus() {
+        const isAdmin = localStorage.getItem('isAdmin') === 'true';
+        const userEmail = localStorage.getItem('userEmail');
+        
+        // Vérifier si l'email est dans la liste des admins
+        const hasAdminRights = isAdminEmail(userEmail);
+        
+        // Mettre à jour le statut admin dans le localStorage
+        localStorage.setItem('isAdmin', hasAdminRights);
+        
+        // Afficher ou masquer les éléments admin
+        const adminElements = document.querySelectorAll('.admin-section');
+        adminElements.forEach(element => {
+            if (hasAdminRights) {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        });
+
+        // Afficher ou masquer la bannière admin
+        let adminBanner = document.querySelector('.admin-banner');
+        if (hasAdminRights) {
+            if (!adminBanner) {
+                adminBanner = document.createElement('div');
+                adminBanner.className = 'admin-banner';
+                adminBanner.innerHTML = `
+                    <i class="fas fa-crown"></i>
+                    Mode Administrateur
+                `;
+                document.body.appendChild(adminBanner);
+            }
+            adminBanner.classList.add('visible');
+        } else {
+            if (adminBanner) {
+                adminBanner.classList.remove('visible');
+            }
+        }
+    }
 
     // Gestion de la connexion
     loginForm.addEventListener('submit', async (e) => {
@@ -189,7 +220,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await response.json();
             
             if (response.ok) {
-                localStorage.setItem('isAdmin', data.isAdmin);
                 localStorage.setItem('userEmail', email);
                 localStorage.setItem('token', data.token);
                 hideAccountModal();
@@ -228,6 +258,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await response.json();
             
             if (response.ok) {
+                // Envoyer un email de confirmation
+                try {
+                    await emailjs.send("service_xxxxx", "template_xxxxx", {
+                        to_email: email,
+                        to_name: email.split('@')[0],
+                        message: "Bienvenue chez Les Pachas ! Votre compte a été créé avec succès."
+                    });
+                } catch (emailError) {
+                    console.error('Erreur lors de l\'envoi de l\'email:', emailError);
+                }
+                
                 alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
                 document.querySelector('[data-tab="login"]').click();
             } else {
@@ -238,43 +279,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Erreur lors de l\'inscription. Veuillez réessayer.');
         }
     });
-
-    // Fonction pour vérifier le statut admin
-    function checkAdminStatus() {
-        const isAdmin = localStorage.getItem('isAdmin') === 'true';
-        if (isAdmin) {
-            // Créer et afficher la bannière admin
-            const adminBanner = document.createElement('div');
-            adminBanner.className = 'admin-banner';
-            adminBanner.innerHTML = `
-                <i class="fas fa-crown"></i>
-                Vous êtes administrateur - Vous pouvez gérer les événements
-            `;
-            document.body.appendChild(adminBanner);
-            setTimeout(() => adminBanner.classList.add('visible'), 100);
-
-            // Afficher la section admin
-            const adminSection = document.querySelector('.admin-section');
-            if (adminSection) {
-                adminSection.style.display = 'block';
-            }
-
-            // Ajouter le lien vers la section admin dans la navigation
-            const navLinks = document.querySelector('.nav-links');
-            if (navLinks && !document.querySelector('[data-section="add-event"]')) {
-                const adminLink = document.createElement('div');
-                adminLink.className = 'sidebar-item';
-                adminLink.dataset.section = 'add-event';
-                adminLink.innerHTML = '<i class="fas fa-plus-circle"></i><span>Ajouter un événement</span>';
-                navLinks.appendChild(adminLink);
-                
-                // Ajouter l'écouteur d'événements pour la navigation
-                adminLink.addEventListener('click', function() {
-                    showSection('add-event');
-                });
-            }
-        }
-    }
 
     // Configuration EmailJS
     const EMAIL_CONFIG = {
@@ -316,49 +320,107 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Gestion du formulaire d'ajout d'événement
-    const eventForm = document.getElementById('eventForm');
-    if (eventForm) {
-        eventForm.addEventListener('submit', async function(e) {
+    // Fonction pour envoyer un email de notification d'événement
+    async function sendEventNotification(event) {
+        try {
+            // Récupérer tous les utilisateurs enregistrés
+            const response = await fetch('/api/users');
+            const users = await response.json();
+            
+            // Envoyer un email à chaque utilisateur
+            for (const user of users) {
+                await emailjs.send(
+                    EMAIL_CONFIG.serviceID,
+                    EMAIL_CONFIG.templateID,
+                    {
+                        to_email: user.email,
+                        to_name: user.email.split('@')[0],
+                        event_title: event.title,
+                        event_date: new Date(event.date).toLocaleDateString('fr-FR'),
+                        event_description: event.description,
+                        event_location: event.location
+                    },
+                    EMAIL_CONFIG.userID
+                );
+            }
+        } catch (error) {
+            console.error('Erreur lors de l\'envoi des notifications:', error);
+        }
+    }
+
+    // Gestion de l'ajout d'événement
+    document.querySelector('.add-event-btn').addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        // Vérifier les droits d'administration
+        const userEmail = localStorage.getItem('userEmail');
+        if (!isAdminEmail(userEmail)) {
+            alert('Vous n\'avez pas les droits d\'administration pour ajouter un événement.');
+            return;
+        }
+
+        const eventForm = document.createElement('form');
+        eventForm.className = 'event-form';
+        eventForm.innerHTML = `
+            <div class="form-group">
+                <label for="event-title">Titre de l'événement</label>
+                <input type="text" id="event-title" required>
+            </div>
+            <div class="form-group">
+                <label for="event-date">Date et heure</label>
+                <input type="datetime-local" id="event-date" required>
+            </div>
+            <div class="form-group">
+                <label for="event-location">Lieu</label>
+                <input type="text" id="event-location" required>
+            </div>
+            <div class="form-group">
+                <label for="event-description">Description</label>
+                <textarea id="event-description" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Ajouter l'événement</button>
+        `;
+
+        const container = document.querySelector('.event-form-container');
+        container.innerHTML = '';
+        container.appendChild(eventForm);
+
+        eventForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const eventData = {
-                title: document.getElementById('eventTitle').value,
-                date: document.getElementById('eventDate').value,
-                location: document.getElementById('eventLocation').value,
-                description: document.getElementById('eventDescription').value
+            
+            const event = {
+                title: document.getElementById('event-title').value,
+                date: document.getElementById('event-date').value,
+                location: document.getElementById('event-location').value,
+                description: document.getElementById('event-description').value
             };
 
             try {
-                // Envoyer l'événement au serveur
                 const response = await fetch('/api/events', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
                     },
-                    body: JSON.stringify(eventData)
+                    body: JSON.stringify(event)
                 });
 
                 if (response.ok) {
-                    // Envoyer la notification
-                    const notificationSent = await sendNotification('event', eventData);
+                    // Envoyer les notifications par email
+                    await sendEventNotification(event);
                     
-                    if (notificationSent) {
-                        alert('Événement créé et notifications envoyées avec succès !');
-                    } else {
-                        alert('Événement créé mais erreur lors de l\'envoi des notifications.');
-                    }
-                    
+                    alert('Événement ajouté avec succès !');
                     loadEvents(); // Recharger la liste des événements
-                    this.reset(); // Réinitialiser le formulaire
+                    eventForm.reset();
                 } else {
-                    alert('Erreur lors de la création de l\'événement');
+                    alert('Erreur lors de l\'ajout de l\'événement');
                 }
             } catch (error) {
                 console.error('Erreur:', error);
-                alert('Erreur lors de la création de l\'événement');
+                alert('Erreur lors de l\'ajout de l\'événement');
             }
         });
-    }
+    });
 
     // Chargement des événements
     function loadEvents() {
@@ -383,6 +445,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Charger les événements au chargement de la page
     loadEvents();
 
-    // Vérification initiale du statut admin
+    // Vérifier le statut admin au chargement de la page
     checkAdminStatus();
 }); 
