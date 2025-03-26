@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 // Envoyer un email de confirmation
                 try {
-                    await emailjs.send("service_xxxxx", "template_xxxxx", {
+                    await emailjs.send(EMAIL_CONFIG.serviceID, EMAIL_CONFIG.templateID, {
                         to_email: email,
                         to_name: email.split('@')[0],
                         message: "Bienvenue chez Les Pachas ! Votre compte a été créé avec succès."
