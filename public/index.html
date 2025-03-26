@@ -110,6 +110,10 @@
                 <i class="fas fa-book-open"></i>
                 <span>Histoire des Pachas</span>
             </div>
+            <div class="sidebar-item" data-section="photos">
+                <i class="fas fa-camera"></i>
+                <span>Photos</span>
+            </div>
             <div class="sidebar-item" id="authButton">
                 <i class="fas fa-user"></i>
                 <span>Compte</span>
@@ -148,6 +152,10 @@
             <div class="nav-item" data-section="about">
                 <i class="fas fa-book-open"></i>
                 <span>Histoire des Pachas</span>
+            </div>
+            <div class="nav-item" data-section="photos">
+                <i class="fas fa-camera"></i>
+                <span>Photos</span>
             </div>
         </nav>
     </div>
@@ -320,6 +328,41 @@
                         <i class="fab fa-instagram"></i>
                     </a>
                 </div>
+            </div>
+        </section>
+
+        <!-- Section Photos -->
+        <section id="photos" class="section">
+            <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
+            <h2 class="section-title">Photos</h2>
+            
+            <!-- Bouton d'ajout de photo (visible uniquement pour les admins) -->
+            <button class="add-photo-btn admin-section">
+                <i class="fas fa-plus"></i> Ajouter une photo
+            </button>
+
+            <!-- Grille des photos -->
+            <div class="photos-grid">
+                <!-- Les photos seront chargées dynamiquement ici -->
+            </div>
+
+            <!-- Formulaire d'ajout de photo (Admin) -->
+            <div class="photo-form-container admin-section" style="display: none;">
+                <form id="photoForm" class="photo-form">
+                    <div class="form-group">
+                        <label for="photoTitle">Titre de la photo</label>
+                        <input type="text" id="photoTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="photoDescription">Description (optionnelle)</label>
+                        <textarea id="photoDescription"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="photoFile">Photo</label>
+                        <input type="file" id="photoFile" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Ajouter la photo</button>
+                </form>
             </div>
         </section>
 
