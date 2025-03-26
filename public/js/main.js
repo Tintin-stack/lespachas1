@@ -97,10 +97,10 @@ document.addEventListener('DOMContentLoaded', function() {
             tab.classList.add('active');
             
             authForms.forEach(form => {
-                if (form.id === `${targetTab}Form`) {
-                    form.style.display = 'block';
+                if (form.id === `${targetTab}-form`) {
+                    form.classList.add('active');
                 } else {
-                    form.style.display = 'none';
+                    form.classList.remove('active');
                 }
             });
         });

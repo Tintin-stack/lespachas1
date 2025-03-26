@@ -218,6 +218,7 @@ body {
     font-family: 'Playfair Display', serif;
     letter-spacing: 2px;
     z-index: 2;
+    display: block;
 }
 
 .subtitle {
@@ -227,6 +228,7 @@ body {
     font-family: 'Lora', serif;
     letter-spacing: 1px;
     z-index: 2;
+    display: block;
 }
 
 .main-nav {
@@ -276,8 +278,12 @@ body {
 
 /* Styles des formulaires */
 .auth-form {
-    display: block;
+    display: none;
     padding: 20px;
+}
+
+.auth-form.active {
+    display: block;
 }
 
 .auth-form-container {
@@ -956,7 +962,7 @@ body {
     transform: translate(-50%, -50%);
     width: 90%;
     max-width: 500px;
-    background: var(--light-color);
+    background: var(--dark-color);
     border-radius: 15px;
     padding: 30px;
     z-index: 2000;
@@ -967,18 +973,23 @@ body {
     display: block;
 }
 
+.modal-content {
+    position: relative;
+    width: 100%;
+}
+
 .modal-close {
     position: absolute;
     top: 10px;
     right: 10px;
     font-size: 24px;
     cursor: pointer;
-    color: var(--dark-color);
+    color: var(--light-color);
     transition: color 0.3s ease;
 }
 
 .modal-close:hover {
-    color: var(--primary-color);
+    color: var(--accent-color);
 }
 
 .account-tabs {
@@ -991,7 +1002,7 @@ body {
 .account-tab {
     padding: 10px 20px;
     cursor: pointer;
-    color: var(--dark-color);
+    color: var(--light-color);
     transition: all 0.3s ease;
     position: relative;
 }
@@ -1014,7 +1025,7 @@ body {
 }
 
 .account-tab.active {
-    color: var(--primary-color);
+    color: var(--accent-color);
     font-weight: bold;
 }
 
