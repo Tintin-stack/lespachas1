@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Configuration EmailJS
+    const EMAIL_CONFIG = {
+        serviceID: 'service_d5avvat',
+        templateID: 'template_p2vdpno',
+        userID: 'bSPMC73_nkit6xKfU'
+    };
+
+    // Liste des emails admin autorisés
+    const ADMIN_EMAILS = ['admin@lespachas.fr', 'lespachas.admin@gmail.com'];
+
     // Sélection des éléments
     const sections = document.querySelectorAll('.section');
     const landingPage = document.querySelector('.landing-page');
@@ -11,6 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const switchToLogin = document.querySelector('.switch-to-login');
     const switchToRegister = document.querySelector('.switch-to-register');
     const backButtons = document.querySelectorAll('.back-button');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const loginTab = document.getElementById('login-tab');
+    const registerTab = document.getElementById('register-tab');
 
     // Initialisation : afficher la landing page immédiatement
     sections.forEach(section => {
@@ -154,15 +168,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Gestion des formulaires de connexion et d'inscription
-    const loginForm = document.getElementById('login-form');
-    const registerForm = document.getElementById('register-form');
-    const loginTab = document.getElementById('login-tab');
-    const registerTab = document.getElementById('register-tab');
-
-    // Liste des emails admin autorisés
-    const ADMIN_EMAILS = ['admin@lespachas.fr', 'lespachas.admin@gmail.com'];
-
     // Fonction pour vérifier si un email est admin
     function isAdminEmail(email) {
         return ADMIN_EMAILS.includes(email);
@@ -185,8 +190,10 @@ document.addEventListener('DOMContentLoaded', function() {
         adminElements.forEach(element => {
             if (hasAdminRights) {
                 element.classList.add('visible');
+                element.style.display = 'block';
             } else {
                 element.classList.remove('visible');
+                element.style.display = 'none';
             }
         });
 
@@ -203,9 +210,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.appendChild(adminBanner);
             }
             adminBanner.classList.add('visible');
+            adminBanner.style.display = 'block';
         } else {
             if (adminBanner) {
                 adminBanner.classList.remove('visible');
+                adminBanner.style.display = 'none';
             }
         }
 
@@ -214,8 +223,10 @@ document.addEventListener('DOMContentLoaded', function() {
         addEventBtns.forEach(btn => {
             if (hasAdminRights) {
                 btn.classList.add('visible');
+                btn.style.display = 'flex';
             } else {
                 btn.classList.remove('visible');
+                btn.style.display = 'none';
             }
         });
     }
@@ -287,6 +298,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.error('Erreur lors de l\'envoi de l\'email:', emailError);
                 }
                 
+                // Stocker l'email et vérifier le statut admin
+                localStorage.setItem('userEmail', email);
+                checkAdminStatus();
+                
                 alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
                 document.querySelector('[data-tab="login"]').click();
             } else {
@@ -297,13 +312,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Erreur lors de l\'inscription. Veuillez réessayer.');
         }
     });
-
-    // Configuration EmailJS
-    const EMAIL_CONFIG = {
-        serviceID: 'service_d5avvat',
-        templateID: 'template_p2vdpno',
-        userID: 'bSPMC73_nkit6xKfU'
-    };
 
     // Fonction pour envoyer des notifications
     async function sendNotification(type, data) {

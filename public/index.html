@@ -220,25 +220,20 @@
         <section id="evenementiel" class="section">
             <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
             <h2 class="section-title">Pôle Événementiel</h2>
-            <div class="admin-section">
-                <button class="add-event-btn">
-                    <i class="fas fa-plus"></i> Ajouter un événement
-                </button>
-            </div>
+            
+            <!-- Bouton d'ajout d'événement (visible uniquement pour les admins) -->
+            <button class="add-event-btn admin-section">
+                <i class="fas fa-plus"></i> Ajouter un événement
+            </button>
+
+            <!-- Conteneur pour le formulaire d'ajout d'événement -->
             <div class="event-form-container"></div>
+
+            <!-- Liste des événements -->
             <div class="events-container">
                 <h3 class="events-title">Événements à venir</h3>
-                <div class="events-grid"></div>
-            </div>
-            <div class="events-container">
-                <h3 class="events-title">Événements passés</h3>
                 <div class="events-grid">
-                    <!-- Les événements passés seront ajoutés dynamiquement via JavaScript -->
-                </div>
-            </div>
-            <div class="admin-section">
-                <div class="event-form-container">
-                    <button class="add-event-btn">Ajouter un événement</button>
+                    <!-- Les événements seront chargés dynamiquement ici -->
                 </div>
             </div>
         </section>
