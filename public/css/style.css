@@ -536,24 +536,41 @@ body {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: var(--gradient-primary);
-    color: var(--light-color);
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--secondary-color);
+    font-size: 1.5rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
     transition: all 0.3s ease;
+    z-index: 1000;
 }
 
 .music-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
     transform: scale(1.1);
+}
+
+.music-toggle.playing {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* Media Queries */
@@ -1099,32 +1116,35 @@ body {
 
 /* Styles pour les cartes de pôle */
 .pole-card {
-    background: rgba(128, 0, 0, 0.9);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 15px;
-    border: 2px solid var(--secondary-color);
-    overflow: hidden;
-    transition: all 0.3s ease;
-    position: relative;
-    max-width: 800px;
-    margin: 40px auto;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    margin: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .pole-card:hover {
     transform: translateY(-5px);
-    border-color: var(--accent-color);
-    box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.45);
 }
 
 .pole-photo {
     width: 100%;
-    height: auto;
-    display: block;
+    height: 400px;
     object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .pole-info {
-    display: none;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-top: 20px;
 }
 
 .pole-name {
@@ -1135,23 +1155,38 @@ body {
 }
 
 .pole-description {
-    font-size: 1.2rem;
-    color: var(--accent-color);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-color);
     margin-bottom: 20px;
-    font-family: 'Lora', serif;
 }
 
 .pole-members {
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 1px solid rgba(218, 165, 32, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .member-list {
-    color: var(--light-color);
-    font-size: 1.1rem;
-    line-height: 1.6;
-    font-style: italic;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.member-list li {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.member-list li i {
+    color: var(--accent-color);
 }
 
 /* Media Queries pour les cartes de pôle */
@@ -1181,4 +1216,85 @@ body {
     .pole-description {
         font-size: 1.1rem;
     }
+}
+
+/* Ajout des styles pour le logo avec fond blanc */
+.main-logo, .nav-logo-img, .member-pacha-logo {
+    filter: brightness(0) saturate(100%) invert(12%) sepia(83%) saturate(0%) hue-rotate(149deg) brightness(95%) contrast(89%);
+    background-color: transparent !important;
+}
+
+/* Styles pour les pages de pôles et bureau */
+.pole-card, .member-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pole-card:hover, .member-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.45);
+}
+
+.pole-photo, .member-photo {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.pole-info, .member-info {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.pole-name, .member-name {
+    font-size: 2rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    font-family: 'Playfair Display', serif;
+}
+
+.pole-description, .member-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.pole-members, .member-role {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.member-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.member-list li {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.member-list li i {
+    color: var(--accent-color);
 } 
