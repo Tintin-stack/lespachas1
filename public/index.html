@@ -220,20 +220,25 @@
         <section id="evenementiel" class="section">
             <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
             <h2 class="section-title">Pôle Événementiel</h2>
-            <div class="pole-card">
-                <img src="/assets/images/evenementiel.jpg" alt="Pôle Événementiel" class="pole-photo">
-                <div class="pole-info">
-                    <h3 class="pole-name">Pôle Événementiel</h3>
-                    <p class="pole-description">Le pôle événementiel est le moteur créatif des Pachas. Nous concevons et organisons des événements exceptionnels qui marquent les esprits et créent des souvenirs inoubliables.</p>
-                    <div class="pole-members">
-                        <h4>Nos Réalisations</h4>
-                        <ul class="member-list">
-                            <li><i class="fas fa-calendar-check"></i> Soirées thématiques</li>
-                            <li><i class="fas fa-music"></i> Concerts et spectacles</li>
-                            <li><i class="fas fa-glass-martini-alt"></i> Événements festifs</li>
-                            <li><i class="fas fa-trophy"></i> Tournois et compétitions</li>
-                        </ul>
-                    </div>
+            <div class="admin-section">
+                <button class="add-event-btn">
+                    <i class="fas fa-plus"></i> Ajouter un événement
+                </button>
+            </div>
+            <div class="event-form-container"></div>
+            <div class="events-container">
+                <h3 class="events-title">Événements à venir</h3>
+                <div class="events-grid"></div>
+            </div>
+            <div class="events-container">
+                <h3 class="events-title">Événements passés</h3>
+                <div class="events-grid">
+                    <!-- Les événements passés seront ajoutés dynamiquement via JavaScript -->
+                </div>
+            </div>
+            <div class="admin-section">
+                <div class="event-form-container">
+                    <button class="add-event-btn">Ajouter un événement</button>
                 </div>
             </div>
         </section>

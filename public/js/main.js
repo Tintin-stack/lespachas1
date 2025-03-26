@@ -171,9 +171,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fonction pour vérifier le statut admin
     function checkAdminStatus() {
         const userEmail = localStorage.getItem('userEmail');
+        console.log('Checking admin status for:', userEmail); // Debug log
         
         // Vérifier si l'email est dans la liste des admins
         const hasAdminRights = isAdminEmail(userEmail);
+        console.log('Has admin rights:', hasAdminRights); // Debug log
         
         // Mettre à jour le statut admin dans le localStorage
         localStorage.setItem('isAdmin', hasAdminRights);
@@ -182,6 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const adminElements = document.querySelectorAll('.admin-section');
         adminElements.forEach(element => {
             element.style.display = hasAdminRights ? 'block' : 'none';
+            console.log('Setting admin element display:', element.style.display); // Debug log
         });
 
         // Afficher ou masquer la bannière admin
@@ -197,6 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.appendChild(adminBanner);
             }
             adminBanner.classList.add('visible');
+            console.log('Admin banner added and made visible'); // Debug log
         } else {
             if (adminBanner) {
                 adminBanner.classList.remove('visible');
@@ -207,6 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const addEventBtn = document.querySelector('.add-event-btn');
         if (addEventBtn) {
             addEventBtn.style.display = hasAdminRights ? 'block' : 'none';
+            console.log('Setting add event button display:', addEventBtn.style.display); // Debug log
         }
     }
 
