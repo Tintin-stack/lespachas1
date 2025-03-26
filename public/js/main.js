@@ -131,59 +131,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const bgMusic = document.getElementById('bgMusic');
     const musicToggle = document.getElementById('musicToggle');
 
-    // Fonction pour initialiser la musique
-    function initMusic() {
-        if (!bgMusic || !musicToggle) {
-            console.error('Éléments de musique non trouvés');
-            return;
-        }
-
-        // Charger la musique
-        bgMusic.load();
-        
-        // Ajouter un gestionnaire d'événements pour le chargement
-        bgMusic.addEventListener('canplaythrough', () => {
-            console.log('Musique de fond chargée avec succès');
-            musicToggle.classList.add('ready');
-        });
-        
-        // Gérer les erreurs de chargement
-        bgMusic.addEventListener('error', (e) => {
-            console.error('Erreur de chargement de la musique:', e);
-        });
-
-        // Ajouter l'événement de clic sur le bouton
-        musicToggle.addEventListener('click', toggleMusic);
-    }
-
-    // Fonction pour basculer la musique
+    // Fonction simple pour basculer la musique
     function toggleMusic() {
-        if (!bgMusic) {
-            console.error('Élément audio non trouvé');
-            return;
-        }
-
         if (bgMusic.paused) {
-            bgMusic.volume = 0.5;
-            const playPromise = bgMusic.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    musicToggle.classList.add('playing');
-                    console.log('Musique démarrée');
-                }).catch(error => {
-                    console.error('Erreur de lecture:', error);
-                });
-            }
+            bgMusic.volume = 0.3;
+            bgMusic.play();
+            musicToggle.classList.add('playing');
         } else {
             bgMusic.pause();
             musicToggle.classList.remove('playing');
-            console.log('Musique mise en pause');
         }
     }
 
-    // Initialiser la musique au chargement de la page
-    document.addEventListener('DOMContentLoaded', initMusic);
+    // Initialiser la musique
+    if (bgMusic && musicToggle) {
+        musicToggle.addEventListener('click', toggleMusic);
+        bgMusic.addEventListener('canplaythrough', () => {
+            console.log('Musique prête à être jouée');
+        });
+    }
 
     // Gestion des formulaires de connexion et d'inscription
     const loginForm = document.getElementById('login-form');
