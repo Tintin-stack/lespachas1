@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configuration EmailJS
     const EMAIL_CONFIG = {
         serviceID: 'service_d5avvat',
-        templateID: 'template_p2vdpno',
+        templateID: 'template_hv30nek',
         userID: 'bSPMC73_nkit6xKfU'
     };
 
@@ -289,13 +289,21 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 // Envoyer un email de confirmation
                 try {
-                    await emailjs.send(EMAIL_CONFIG.serviceID, EMAIL_CONFIG.templateID, {
-                        to_email: email,
-                        to_name: email.split('@')[0],
-                        message: "Bienvenue chez Les Pachas ! Votre compte a été créé avec succès."
-                    });
+                    console.log('Tentative d\'envoi de l\'email de bienvenue à:', email);
+                    const emailResult = await emailjs.send(
+                        EMAIL_CONFIG.serviceID,
+                        EMAIL_CONFIG.templateID,
+                        {
+                            to_name: email.split('@')[0],
+                            to_email: email,
+                            message: "Bienvenue dans la pachas family, tu seras maintenant au courant de nos prochains events !!"
+                        },
+                        EMAIL_CONFIG.userID
+                    );
+                    console.log('Email de bienvenue envoyé avec succès:', emailResult);
                 } catch (emailError) {
                     console.error('Erreur lors de l\'envoi de l\'email:', emailError);
+                    alert('Votre compte a été créé mais l\'email de bienvenue n\'a pas pu être envoyé.');
                 }
                 
                 // Stocker l'email et vérifier le statut admin
@@ -349,28 +357,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fonction pour envoyer un email de notification d'événement
     async function sendEventNotification(event) {
         try {
+            console.log('Début de l\'envoi des notifications pour l\'événement:', event.title);
             // Récupérer tous les utilisateurs enregistrés
             const response = await fetch('/api/users');
             const users = await response.json();
+            console.log('Nombre d\'utilisateurs à notifier:', users.length);
             
             // Envoyer un email à chaque utilisateur
             for (const user of users) {
-                await emailjs.send(
-                    EMAIL_CONFIG.serviceID,
-                    EMAIL_CONFIG.templateID,
-                    {
-                        to_email: user.email,
-                        to_name: user.email.split('@')[0],
-                        event_title: event.title,
-                        event_date: new Date(event.date).toLocaleDateString('fr-FR'),
-                        event_description: event.description,
-                        event_location: event.location
-                    },
-                    EMAIL_CONFIG.userID
-                );
+                try {
+                    console.log('Envoi de la notification à:', user.email);
+                    const emailResult = await emailjs.send(
+                        EMAIL_CONFIG.serviceID,
+                        EMAIL_CONFIG.templateID,
+                        {
+                            to_name: user.email.split('@')[0],
+                            to_email: user.email,
+                            message: `Nouvel événement : ${event.title}\nDate : ${new Date(event.date).toLocaleDateString('fr-FR')}\nLieu : ${event.location}\nDescription : ${event.description}`
+                        },
+                        EMAIL_CONFIG.userID
+                    );
+                    console.log('Notification envoyée avec succès à:', user.email, emailResult);
+                } catch (userError) {
+                    console.error('Erreur lors de l\'envoi à', user.email, ':', userError);
+                }
             }
+            console.log('Fin de l\'envoi des notifications pour l\'événement:', event.title);
         } catch (error) {
             console.error('Erreur lors de l\'envoi des notifications:', error);
+            alert('L\'événement a été ajouté mais les notifications n\'ont pas pu être envoyées.');
         }
     }
 
