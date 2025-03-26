@@ -32,13 +32,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Événements du modal
     if (authButton) {
-        authButton.addEventListener('click', showAccountModal);
+        authButton.addEventListener('click', () => {
+            modalOverlay.classList.add('active');
+            accountModal.classList.add('active');
+        });
     }
     if (modalClose) {
-        modalClose.addEventListener('click', hideAccountModal);
+        modalClose.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+            accountModal.classList.remove('active');
+        });
     }
     if (modalOverlay) {
-        modalOverlay.addEventListener('click', hideAccountModal);
+        modalOverlay.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+            accountModal.classList.remove('active');
+        });
     }
 
     // Fonction pour afficher une section
