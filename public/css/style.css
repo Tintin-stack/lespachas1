@@ -101,7 +101,7 @@ body {
 .nav-logo {
     width: 80px;
     height: 80px;
-    margin: 0 auto;
+    margin: 20px auto;
     border-radius: 50%;
     overflow: hidden;
     background: transparent;
@@ -123,6 +123,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin-top: 40px;
 }
 
 .sidebar-item {
