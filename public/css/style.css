@@ -101,7 +101,7 @@ body {
 .nav-logo {
     width: 80px;
     height: 80px;
-    margin: 20px auto;
+    margin: 0 auto;
     border-radius: 50%;
     overflow: hidden;
     background: transparent;
@@ -188,7 +188,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     min-height: 100vh;
     padding: 20px;
     text-align: center;
@@ -211,25 +211,21 @@ body {
 }
 
 .main-title {
-    font-size: 4rem;
+    font-size: 5rem;
     color: var(--secondary-color);
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     font-family: 'Playfair Display', serif;
     letter-spacing: 2px;
-    position: relative;
-    top: -50px;
     z-index: 2;
 }
 
 .subtitle {
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     color: var(--accent-color);
     margin-bottom: 40px;
     font-family: 'Lora', serif;
     letter-spacing: 1px;
-    position: relative;
-    top: -50px;
     z-index: 2;
 }
 
@@ -644,15 +640,13 @@ body {
     }
 
     .main-title {
-        font-size: 3.5rem;
+        font-size: 4rem;
         margin-bottom: 15px;
-        top: -30px;
     }
 
     .subtitle {
-        font-size: 1.5rem;
+        font-size: 2rem;
         margin-bottom: 30px;
-        top: -30px;
     }
 
     .section-title {
@@ -741,12 +735,12 @@ body {
     }
 
     .main-title {
-        font-size: 3rem;
+        font-size: 3.5rem;
         margin-bottom: 10px;
     }
 
     .subtitle {
-        font-size: 1.3rem;
+        font-size: 1.8rem;
         margin-bottom: 25px;
     }
 
