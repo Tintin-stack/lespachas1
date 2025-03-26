@@ -473,4 +473,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Vérifier le statut admin au chargement de la page
     checkAdminStatus();
+
+    // Gestion du menu hamburger
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // Fermer le menu lors du clic sur un lien
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+            });
+        });
+
+        // Fermer le menu lors du clic en dehors
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+    }
 }); 
