@@ -151,14 +151,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fonction pour basculer la musique
     function toggleMusic() {
         if (bgMusic.paused) {
-            const playPromise = bgMusic.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    musicToggle.classList.add('playing');
-                }).catch(error => {
-                    console.error('Erreur de lecture:', error);
-                });
-            }
+            bgMusic.volume = 0.5; // Réduire le volume à 50%
+            bgMusic.play().then(() => {
+                musicToggle.classList.add('playing');
+            }).catch(error => {
+                console.error('Erreur de lecture:', error);
+            });
         } else {
             bgMusic.pause();
             musicToggle.classList.remove('playing');
