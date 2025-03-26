@@ -127,25 +127,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Gestion de la musique
-    const musicToggle = document.getElementById('musicToggle');
+    // Gestion de la musique de fond
     const bgMusic = document.getElementById('bgMusic');
-    let isMusicPlaying = false;
+    const musicToggle = document.getElementById('musicToggle');
 
-    if (musicToggle && bgMusic) {
-        musicToggle.addEventListener('click', () => {
-            if (isMusicPlaying) {
-                bgMusic.pause();
-                musicToggle.innerHTML = '<i class="fas fa-music"></i>';
-            } else {
-                bgMusic.play().catch(error => {
-                    console.log('Lecture automatique non autorisée');
-                });
-                musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-            }
-            isMusicPlaying = !isMusicPlaying;
-        });
+    // Vérifier si la musique est chargée
+    bgMusic.addEventListener('canplaythrough', () => {
+        console.log('Musique de fond chargée avec succès');
+        musicToggle.classList.add('ready');
+    });
+
+    // Fonction pour basculer la musique
+    function toggleMusic() {
+        if (bgMusic.paused) {
+            bgMusic.play();
+            musicToggle.classList.add('playing');
+        } else {
+            bgMusic.pause();
+            musicToggle.classList.remove('playing');
+        }
     }
+
+    // Ajouter l'événement de clic sur le bouton de musique
+    musicToggle.addEventListener('click', toggleMusic);
 
     // Gestion des formulaires de connexion et d'inscription
     const loginForm = document.getElementById('login-form');

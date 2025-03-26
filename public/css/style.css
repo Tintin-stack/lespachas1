@@ -114,7 +114,6 @@ body {
     background-size: contain;
     border-radius: 50%;
     background-color: transparent;
-    mix-blend-mode: multiply;
 }
 
 .nav-links {
@@ -211,7 +210,6 @@ body {
     margin: 0 auto;
     border-radius: 50%;
     background-color: transparent;
-    mix-blend-mode: multiply;
 }
 
 .main-title {
@@ -376,32 +374,40 @@ body {
 }
 
 .member-card {
-    background: rgba(128, 0, 0, 0.9);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 15px;
-    border: 2px solid var(--secondary-color);
-    overflow: hidden;
-    transition: all 0.3s ease;
-    position: relative;
-    max-width: 800px;
-    margin: 40px auto;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    margin: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .member-card:hover {
     transform: translateY(-5px);
-    border-color: var(--accent-color);
-    box-shadow: 0 5px 20px rgba(218, 165, 32, 0.4);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.45);
 }
 
 .member-photo {
     width: 100%;
     height: auto;
-    display: block;
-    object-fit: cover;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .member-info {
-    display: none;
+    width: 100%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-top: 20px;
 }
 
 .member-name {
@@ -439,7 +445,6 @@ body {
     z-index: 2;
     border-radius: 50%;
     background-color: transparent;
-    mix-blend-mode: multiply;
 }
 
 .member-card:hover .member-pacha-logo {
@@ -614,7 +619,7 @@ body {
     }
 
     .member-photo {
-        height: 300px;
+        max-height: 400px;
     }
 
     .member-pacha-logo {
@@ -662,7 +667,7 @@ body {
     }
 
     .pole-photo {
-        height: 300px;
+        max-height: 400px;
     }
 
     .events-container {
@@ -706,7 +711,7 @@ body {
     }
 
     .member-photo {
-        height: 250px;
+        max-height: 300px;
     }
 
     .modal-content {
@@ -751,7 +756,7 @@ body {
     }
 
     .pole-photo {
-        height: 250px;
+        max-height: 300px;
     }
 
     .events-container {
@@ -1133,8 +1138,9 @@ body {
 
 .pole-photo {
     width: 100%;
-    height: 400px;
-    object-fit: cover;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
     border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -1196,7 +1202,7 @@ body {
     }
 
     .pole-photo {
-        height: 300px;
+        max-height: 400px;
     }
 
     .pole-name {
@@ -1206,7 +1212,7 @@ body {
 
 @media (max-width: 480px) {
     .pole-photo {
-        height: 250px;
+        max-height: 300px;
     }
 
     .pole-name {
@@ -1220,8 +1226,8 @@ body {
 
 /* Ajout des styles pour le logo avec fond blanc */
 .main-logo, .nav-logo-img, .member-pacha-logo {
-    filter: brightness(0) saturate(100%) invert(12%) sepia(83%) saturate(0%) hue-rotate(149deg) brightness(95%) contrast(89%);
     background-color: transparent !important;
+    mix-blend-mode: normal;
 }
 
 /* Styles pour les pages de pôles et bureau */
@@ -1243,8 +1249,9 @@ body {
 
 .pole-photo, .member-photo {
     width: 100%;
-    height: 400px;
-    object-fit: cover;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
     border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
