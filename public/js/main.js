@@ -185,12 +185,9 @@ document.addEventListener('DOMContentLoaded', function() {
         adminElements.forEach(element => {
             if (hasAdminRights) {
                 element.classList.add('visible');
-                element.style.display = 'block';
             } else {
                 element.classList.remove('visible');
-                element.style.display = 'none';
             }
-            console.log('Setting admin element display:', element.style.display); // Debug log
         });
 
         // Afficher ou masquer la bannière admin
@@ -206,12 +203,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.appendChild(adminBanner);
             }
             adminBanner.classList.add('visible');
-            adminBanner.style.display = 'block';
-            console.log('Admin banner added and made visible'); // Debug log
         } else {
             if (adminBanner) {
                 adminBanner.classList.remove('visible');
-                adminBanner.style.display = 'none';
             }
         }
 
@@ -220,12 +214,9 @@ document.addEventListener('DOMContentLoaded', function() {
         addEventBtns.forEach(btn => {
             if (hasAdminRights) {
                 btn.classList.add('visible');
-                btn.style.display = 'flex';
             } else {
                 btn.classList.remove('visible');
-                btn.style.display = 'none';
             }
-            console.log('Setting add event button display:', btn.style.display); // Debug log
         });
     }
 
