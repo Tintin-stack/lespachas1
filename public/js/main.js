@@ -140,11 +140,6 @@ document.addEventListener('DOMContentLoaded', function() {
         bgMusic.addEventListener('canplaythrough', () => {
             console.log('Musique de fond chargée avec succès');
             musicToggle.classList.add('ready');
-            
-            // Démarrer la musique automatiquement (si autorisé par le navigateur)
-            bgMusic.play().catch(error => {
-                console.log('Lecture automatique non autorisée:', error);
-            });
         });
         
         // Gérer les erreurs de chargement
@@ -156,11 +151,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fonction pour basculer la musique
     function toggleMusic() {
         if (bgMusic.paused) {
-            bgMusic.play().then(() => {
-                musicToggle.classList.add('playing');
-            }).catch(error => {
-                console.error('Erreur de lecture:', error);
-            });
+            const playPromise = bgMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicToggle.classList.add('playing');
+                }).catch(error => {
+                    console.error('Erreur de lecture:', error);
+                });
+            }
         } else {
             bgMusic.pause();
             musicToggle.classList.remove('playing');
