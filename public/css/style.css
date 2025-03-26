@@ -212,9 +212,13 @@ body {
 
 .main-title {
     font-size: 5rem;
-    color: var(--secondary-color);
+    color: var(--primary-color);
     margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 
+        2px 2px 0 var(--secondary-color),
+        -2px -2px 0 var(--secondary-color),
+        2px -2px 0 var(--secondary-color),
+        -2px 2px 0 var(--secondary-color);
     font-family: 'Playfair Display', serif;
     letter-spacing: 2px;
     z-index: 2;
@@ -223,12 +227,17 @@ body {
 
 .subtitle {
     font-size: 2.5rem;
-    color: var(--accent-color);
+    color: var(--primary-color);
     margin-bottom: 40px;
     font-family: 'Lora', serif;
     letter-spacing: 1px;
     z-index: 2;
     display: block;
+    text-shadow: 
+        2px 2px 0 var(--secondary-color),
+        -2px -2px 0 var(--secondary-color),
+        2px -2px 0 var(--secondary-color),
+        -2px 2px 0 var(--secondary-color);
 }
 
 .main-nav {
