@@ -223,23 +223,31 @@
         <section id="evenementiel" class="section">
             <button class="back-button"><i class="fas fa-arrow-left"></i> Retour</button>
             <h2 class="section-title">Pôle Événementiel</h2>
-            
-            <!-- Bouton d'ajout d'événement (visible uniquement pour les admins) -->
-            <button class="add-event-btn admin-section">
-                <i class="fas fa-plus"></i> Ajouter un événement
-            </button>
-
-            <!-- Conteneur pour le formulaire d'ajout d'événement -->
-            <div class="event-form-container"></div>
-
-            <!-- Liste des événements -->
-            <div class="events-container">
-                <h3 class="events-title">Événements à venir</h3>
-                <div class="events-grid">
-                    <!-- Les événements seront chargés dynamiquement ici -->
+            <div class="pole-card">
+                <img src="/assets/images/Evenementiel.jpg" alt="Pôle Événementiel" class="pole-photo">
+                <div class="pole-info">
+                    <h3 class="pole-name">Pôle Événementiel</h3>
+                    <p class="pole-description">Le pôle événementiel est le cœur battant des Pachas. Notre mission est d'organiser des événements mémorables qui rassemblent les étudiants et créent des souvenirs inoubliables.</p>
+                    <div class="pole-members">
+                        <h4>Nos Missions</h4>
+                        <ul class="member-list">
+                            <li><i class="fas fa-calendar-check"></i> Organiser des événements de qualité</li>
+                            <li><i class="fas fa-users"></i> Créer des moments de convivialité</li>
+                            <li><i class="fas fa-music"></i> Gérer les soirées et animations</li>
+                            <li><i class="fas fa-star"></i> Assurer le succès de chaque événement</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- Liste des événements -->
+        <div class="events-container">
+            <h3 class="events-title">Événements à venir</h3>
+            <div class="events-grid">
+                <!-- Les événements seront chargés dynamiquement ici -->
+            </div>
+        </div>
 
         <!-- Section RH -->
         <section id="rh" class="section">
