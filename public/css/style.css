@@ -1028,6 +1028,31 @@ body {
     color: var(--accent-color);
 }
 
+/* Styles pour le bouton d'ajout d'événement */
+.add-event-btn {
+    background: var(--gradient-primary);
+    color: var(--light-color);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.add-event-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);
+}
+
+.add-event-btn i {
+    font-size: 1.2em;
+}
+
 @keyframes slideIn {
     from {
         transform: translateX(-100%);
