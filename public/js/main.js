@@ -183,7 +183,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Afficher ou masquer les éléments admin
         const adminElements = document.querySelectorAll('.admin-section');
         adminElements.forEach(element => {
-            element.style.display = hasAdminRights ? 'block' : 'none';
+            if (hasAdminRights) {
+                element.classList.add('visible');
+                element.style.display = 'block';
+            } else {
+                element.classList.remove('visible');
+                element.style.display = 'none';
+            }
             console.log('Setting admin element display:', element.style.display); // Debug log
         });
 
@@ -200,19 +206,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.appendChild(adminBanner);
             }
             adminBanner.classList.add('visible');
+            adminBanner.style.display = 'block';
             console.log('Admin banner added and made visible'); // Debug log
         } else {
             if (adminBanner) {
                 adminBanner.classList.remove('visible');
+                adminBanner.style.display = 'none';
             }
         }
 
         // Afficher ou masquer le bouton d'ajout d'événement
-        const addEventBtn = document.querySelector('.add-event-btn');
-        if (addEventBtn) {
-            addEventBtn.style.display = hasAdminRights ? 'block' : 'none';
-            console.log('Setting add event button display:', addEventBtn.style.display); // Debug log
-        }
+        const addEventBtns = document.querySelectorAll('.add-event-btn');
+        addEventBtns.forEach(btn => {
+            if (hasAdminRights) {
+                btn.classList.add('visible');
+                btn.style.display = 'flex';
+            } else {
+                btn.classList.remove('visible');
+                btn.style.display = 'none';
+            }
+            console.log('Setting add event button display:', btn.style.display); // Debug log
+        });
     }
 
     // Gestion de la connexion

@@ -996,7 +996,7 @@ body {
 
 /* Styles pour les sections admin */
 .admin-section {
-    display: none;
+    display: none !important;
 }
 
 .admin-section.visible {
@@ -1014,7 +1014,7 @@ body {
     border-radius: 25px;
     font-weight: bold;
     z-index: 1001;
-    display: none;
+    display: none !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     animation: slideIn 0.5s ease;
 }
@@ -1038,19 +1038,14 @@ body {
     font-weight: bold;
     cursor: pointer;
     margin: 20px auto;
-    display: flex;
+    display: none !important;
     align-items: center;
     gap: 10px;
     transition: all 0.3s ease;
 }
 
-.add-event-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);
-}
-
-.add-event-btn i {
-    font-size: 1.2em;
+.add-event-btn.visible {
+    display: flex !important;
 }
 
 @keyframes slideIn {
