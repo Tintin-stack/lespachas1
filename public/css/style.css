@@ -215,10 +215,11 @@ body {
     color: var(--primary-color);
     margin-bottom: 20px;
     text-shadow: 
-        2px 2px 0 var(--secondary-color),
-        -2px -2px 0 var(--secondary-color),
-        2px -2px 0 var(--secondary-color),
-        -2px 2px 0 var(--secondary-color);
+        3px 3px 0 var(--secondary-color),
+        -3px -3px 0 var(--secondary-color),
+        3px -3px 0 var(--secondary-color),
+        -3px 3px 0 var(--secondary-color),
+        0 0 10px var(--secondary-color);
     font-family: 'Playfair Display', serif;
     letter-spacing: 2px;
     z-index: 2;
@@ -234,10 +235,11 @@ body {
     z-index: 2;
     display: block;
     text-shadow: 
-        2px 2px 0 var(--secondary-color),
-        -2px -2px 0 var(--secondary-color),
-        2px -2px 0 var(--secondary-color),
-        -2px 2px 0 var(--secondary-color);
+        3px 3px 0 var(--secondary-color),
+        -3px -3px 0 var(--secondary-color),
+        3px -3px 0 var(--secondary-color),
+        -3px 3px 0 var(--secondary-color),
+        0 0 10px var(--secondary-color);
 }
 
 .main-nav {
