@@ -133,6 +133,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fonction pour initialiser la musique
     function initMusic() {
+        if (!bgMusic || !musicToggle) {
+            console.error('Éléments de musique non trouvés');
+            return;
+        }
+
         // Charger la musique
         bgMusic.load();
         
@@ -146,28 +151,39 @@ document.addEventListener('DOMContentLoaded', function() {
         bgMusic.addEventListener('error', (e) => {
             console.error('Erreur de chargement de la musique:', e);
         });
+
+        // Ajouter l'événement de clic sur le bouton
+        musicToggle.addEventListener('click', toggleMusic);
     }
 
     // Fonction pour basculer la musique
     function toggleMusic() {
+        if (!bgMusic) {
+            console.error('Élément audio non trouvé');
+            return;
+        }
+
         if (bgMusic.paused) {
-            bgMusic.volume = 0.5; // Réduire le volume à 50%
-            bgMusic.play().then(() => {
-                musicToggle.classList.add('playing');
-            }).catch(error => {
-                console.error('Erreur de lecture:', error);
-            });
+            bgMusic.volume = 0.5;
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicToggle.classList.add('playing');
+                    console.log('Musique démarrée');
+                }).catch(error => {
+                    console.error('Erreur de lecture:', error);
+                });
+            }
         } else {
             bgMusic.pause();
             musicToggle.classList.remove('playing');
+            console.log('Musique mise en pause');
         }
     }
 
     // Initialiser la musique au chargement de la page
-    document.addEventListener('DOMContentLoaded', () => {
-        initMusic();
-        musicToggle.addEventListener('click', toggleMusic);
-    });
+    document.addEventListener('DOMContentLoaded', initMusic);
 
     // Gestion des formulaires de connexion et d'inscription
     const loginForm = document.getElementById('login-form');
