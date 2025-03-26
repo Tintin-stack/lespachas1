@@ -20,34 +20,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fonction pour afficher le modal
     function showAccountModal() {
-        modalOverlay.style.display = 'block';
-        accountModal.style.display = 'block';
+        modalOverlay.classList.add('active');
+        accountModal.classList.add('active');
+        // Afficher le formulaire de connexion par défaut
+        loginForm.classList.add('active');
+        registerForm.classList.remove('active');
     }
 
     // Fonction pour cacher le modal
     function hideAccountModal() {
-        modalOverlay.style.display = 'none';
-        accountModal.style.display = 'none';
+        modalOverlay.classList.remove('active');
+        accountModal.classList.remove('active');
     }
 
     // Événements du modal
     if (authButton) {
-        authButton.addEventListener('click', () => {
-            modalOverlay.classList.add('active');
-            accountModal.classList.add('active');
-        });
+        authButton.addEventListener('click', showAccountModal);
     }
     if (modalClose) {
-        modalClose.addEventListener('click', () => {
-            modalOverlay.classList.remove('active');
-            accountModal.classList.remove('active');
-        });
+        modalClose.addEventListener('click', hideAccountModal);
     }
     if (modalOverlay) {
-        modalOverlay.addEventListener('click', () => {
-            modalOverlay.classList.remove('active');
-            accountModal.classList.remove('active');
-        });
+        modalOverlay.addEventListener('click', hideAccountModal);
     }
 
     // Fonction pour afficher une section
@@ -105,13 +99,13 @@ document.addEventListener('DOMContentLoaded', function() {
             accountTabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             
-            authForms.forEach(form => {
-                if (form.id === `${targetTab}-form`) {
-                    form.classList.add('active');
-                } else {
-                    form.classList.remove('active');
-                }
-            });
+            if (targetTab === 'login') {
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+            } else {
+                registerForm.classList.add('active');
+                loginForm.classList.remove('active');
+            }
         });
     });
 
@@ -176,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fonction pour vérifier le statut admin
     function checkAdminStatus() {
-        const isAdmin = localStorage.getItem('isAdmin') === 'true';
         const userEmail = localStorage.getItem('userEmail');
         
         // Vérifier si l'email est dans la liste des admins
@@ -188,11 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Afficher ou masquer les éléments admin
         const adminElements = document.querySelectorAll('.admin-section');
         adminElements.forEach(element => {
-            if (hasAdminRights) {
-                element.style.display = 'block';
-            } else {
-                element.style.display = 'none';
-            }
+            element.style.display = hasAdminRights ? 'block' : 'none';
         });
 
         // Afficher ou masquer la bannière admin
@@ -212,6 +201,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (adminBanner) {
                 adminBanner.classList.remove('visible');
             }
+        }
+
+        // Afficher ou masquer le bouton d'ajout d'événement
+        const addEventBtn = document.querySelector('.add-event-btn');
+        if (addEventBtn) {
+            addEventBtn.style.display = hasAdminRights ? 'block' : 'none';
         }
     }
 
@@ -236,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 localStorage.setItem('userEmail', email);
                 localStorage.setItem('token', data.token);
                 hideAccountModal();
-                checkAdminStatus();
+                checkAdminStatus(); // Vérifier le statut admin après la connexion
                 alert('Connexion réussie !');
             } else {
                 alert(data.error || 'Email ou mot de passe incorrect');
