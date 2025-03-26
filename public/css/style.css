@@ -101,22 +101,20 @@ body {
 .nav-logo {
     width: 80px;
     height: 80px;
-    margin-bottom: 20px;
+    margin: 20px auto;
     border-radius: 50%;
     overflow: hidden;
     background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    top: 10px;
 }
 
 .nav-logo-img {
     width: 100%;
     height: 100%;
     background: url('../assets/images/logo.png') no-repeat center center;
-    background-size: 90% 90%;
+    background-size: 95% 95%;
     border-radius: 50%;
     background-color: transparent;
     filter: brightness(1.2) contrast(1.2);
@@ -198,17 +196,7 @@ body {
 }
 
 .logo-container {
-    margin-bottom: 20px;
-    position: relative;
-    width: 400px;
-    height: 400px;
-    margin-top: 20px;
-    border-radius: 50%;
-    overflow: hidden;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: none;
 }
 
 .main-logo {
@@ -711,12 +699,11 @@ body {
     .nav-logo {
         width: 60px;
         height: 60px;
-        margin-bottom: 15px;
-        top: 5px;
+        margin: 15px auto;
     }
     
     .nav-logo-img {
-        background-size: 90% 90%;
+        background-size: 95% 95%;
     }
 }
 
