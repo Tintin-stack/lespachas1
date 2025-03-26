@@ -117,7 +117,6 @@ body {
     background-size: 95% 95%;
     border-radius: 50%;
     background-color: transparent;
-    filter: brightness(1.2) contrast(1.2);
 }
 
 .nav-links {
@@ -1380,7 +1379,7 @@ body {
     }
 }
 
-/* Ajout des styles pour le logo avec fond blanc */
+/* Suppression des styles qui affectaient le logo */
 .main-logo, .nav-logo-img, .member-pacha-logo {
     background-color: transparent !important;
     mix-blend-mode: normal;
